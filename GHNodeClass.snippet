@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Grasshopper Node Class Template</Title>
+      <Author>Joshua Marris</Author>
+      <Description>Creates the structure of a new node class for Grasshopper</Description>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp">
+        <![CDATA[public class $NODE_NAME$ : GH_Component
+    {
+
+        public $NODE_NAME$() : base($FullNodeName$, $ShortNodeName$, $NodeDescription$, "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static $NODE_NAME$ Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter($FullInputName$, $ShortInputName$, $InputDescription$, GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter($FullOutputName$, $ShortOutputName$, $OutputDescription$, GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+
+        }
+    }]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

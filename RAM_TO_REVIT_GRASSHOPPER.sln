@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAM_TO_REVIT_GRASSHOPPER", "RAM_TO_REVIT_GRASSHOPPER\RAM_TO_REVIT_GRASSHOPPER.csproj", "{7A8BA7FA-CE18-4691-A672-EE34BB5DCAC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A8BA7FA-CE18-4691-A672-EE34BB5DCAC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A8BA7FA-CE18-4691-A672-EE34BB5DCAC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A8BA7FA-CE18-4691-A672-EE34BB5DCAC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A8BA7FA-CE18-4691-A672-EE34BB5DCAC0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48941DE4-45D6-43BC-BFB5-DC4A6315D9DA}
+	EndGlobalSection
+EndGlobal
