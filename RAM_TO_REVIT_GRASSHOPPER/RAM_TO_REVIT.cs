@@ -342,44 +342,84 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                     Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(PD1, PD2);
                 ListLine.Add(Dline);
             }
+            DA.SetData("ListLine", ListLine);
             //CLOSE           
             IDBI.CloseDatabase();
-            //return list 
-            return ListLine;
         }
     }
 
 
-    public class  : GH_Component
+    public class GET_RAM_COL_SIZE : GH_Component
     {
 
-        public () : base(, , , "RAM", "Data")
+        public GET_RAM_COL_SIZE() : base("GET_RAM_COL_SIZE", "GRCS", "Get RAM Column Size", "RAM", "Data")
         {
 
         }
-public override Guid ComponentGuid
-{
-    get { return new Guid(""); }
-}
-public static Instance
-{
-    get;
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_RAM_COL_SIZE Instance
+        {
+            get;
             private set;
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
-{
-    pManager.AddTextParameter(, , , GH_ParamAccess.item);
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
-}
+        }
 
-protected override void RegisterOutputParams(GH_OutputParamManager pManager)
-{
-    pManager.AddTextParameter(, , , GH_ParamAccess.item);
-}
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+        }
 
-protected override void SolveInstance(IGH_DataAccess DA)
-{
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            int In_Story_Count = 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+            {
+                return;
+            }
+            if (In_Story_Count == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            int My_story_count = My_stories.GetCount();
+            IStory My_Story = My_stories.GetAt(In_Story_Count);
+            IColumns My_Columns = My_Story.GetColumns();
+            int Column_Count = My_Columns.GetCount();
 
-}
+            List<string> ListLine = new List<string>();
+            //create loop herenthru all count
+            //start..end..step
+            for (int i = 0; i < Column_Count; i = i + 1)
+            {
+                string My_Column_Size = My_Story.GetColumns().GetAt(i).strSectionLabel;
+                ListLine.Add(My_Column_Size);
+            }
+            //CLOSE           
+            IDBI.CloseDatabase();
+        }
     }
 }
