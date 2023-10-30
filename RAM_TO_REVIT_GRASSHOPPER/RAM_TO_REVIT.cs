@@ -90,7 +90,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("FloorTypeID", "FTID", "Floor Type ID", GH_ParamAccess.item);
+            pManager.AddNumberParameter("FloorTypeID", "FTID", "Floor Type ID", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -146,7 +146,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("3EE55B6E-4D64-4359-946B-1CAFC86C6187"); }
         }
         public static SET_FLOOR_TYPE Instance
         {
@@ -216,7 +216,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("{FF24E6AA-6701-4365-BE20-074DAC1EAD1D}"); }
+            get { return new Guid("FF24E6AA-6701-4365-BE20-074DAC1EAD1D"); }
         }
         public static GET_FLOOR_TYPE_COUNT Instance
         {
@@ -257,5 +257,129 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             //CLOSE           
             IDBI.CloseDatabase();
         }
+    }
+
+
+    public class GET_RAM_COL_CL : GH_Component
+    {
+
+        public GET_RAM_COL_CL() : base("GET_STORY_COUNT", "GSC", "Get Story Count", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid("DC579175-5B31-4E92-B8AB-0F1D2B7D8ED3"); }
+        }
+        public static GET_RAM_COL_CL Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            int In_Story_Count = 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+            {
+                return;
+            }
+            if (In_Story_Count == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            int My_story_count = My_stories.GetCount();
+            IStory My_Story = My_stories.GetAt(In_Story_Count);
+            IColumns My_Columns = My_Story.GetColumns();
+            int Column_Count = My_Columns.GetCount();
+            SCoordinate P1 = new SCoordinate();
+            SCoordinate P2 = new SCoordinate();
+            List<Autodesk.DesignScript.Geometry.Line> ListLine = new List<Autodesk.DesignScript.Geometry.Line>();
+            //create loop herenthru all count
+            //start..end..step
+            for (int i = 0; i < Column_Count; i = i + 1)
+            {
+                My_Story.GetColumns().GetAt(i).GetEndCoordinates(ref P1, ref P2);
+                double P1x = P1.dXLoc;
+                double P1y = P1.dYLoc;
+                double P1z = P1.dZLoc;
+                double P2x = P2.dXLoc;
+                double P2y = P2.dYLoc;
+                double P2z = P2.dZLoc;
+                Autodesk.DesignScript.Geometry.Point PD1 =
+                    Autodesk.DesignScript.Geometry.Point.ByCoordinates(P1x, P1y, P1z);
+                Autodesk.DesignScript.Geometry.Point PD2 =
+                    Autodesk.DesignScript.Geometry.Point.ByCoordinates(P2x, P2y, P2z);
+                Autodesk.DesignScript.Geometry.Line Dline =
+                    Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(PD1, PD2);
+                ListLine.Add(Dline);
+            }
+            //CLOSE           
+            IDBI.CloseDatabase();
+            //return list 
+            return ListLine;
+        }
+    }
+
+
+    public class  : GH_Component
+    {
+
+        public () : base(, , , "RAM", "Data")
+        {
+
+        }
+public override Guid ComponentGuid
+{
+    get { return new Guid(""); }
+}
+public static Instance
+{
+    get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+{
+    pManager.AddTextParameter(, , , GH_ParamAccess.item);
+
+}
+
+protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+{
+    pManager.AddTextParameter(, , , GH_ParamAccess.item);
+}
+
+protected override void SolveInstance(IGH_DataAccess DA)
+{
+
+}
     }
 }
