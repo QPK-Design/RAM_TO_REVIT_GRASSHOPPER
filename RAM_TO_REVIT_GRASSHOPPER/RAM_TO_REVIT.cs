@@ -575,4 +575,80 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IDBI.CloseDatabase();
         }
     }
+
+
+    public class GET_RAM_COL_IS_GRAV_OR_LATERAL : GH_Component
+    {
+
+        public GET_RAM_COL_IS_GRAV_OR_LATERAL() : base("GET_RAM_COL_IS_GRAV_OR_LATERAL", "GRCIGOL", "Get RAM Column is Grav or Lateral", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_RAM_COL_IS_GRAV_OR_LATERAL Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            int In_Story_Count = 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+            {
+                return;
+            }
+            if (In_Story_Count == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            int My_story_count = My_stories.GetCount();
+            IStory My_Story = My_stories.GetAt(In_Story_Count);
+            IColumns My_Columns = My_Story.GetColumns();
+            int Column_Count = My_Columns.GetCount();
+
+            List<string> ListLine = new List<string>();
+            //create loop herenthru all count
+            //start..end..step
+            for (int i = 0; i < Column_Count; i = i + 1)
+            {
+                string My_Column_EFrameType = My_Story.GetColumns().GetAt(i).eFramingType.ToString();
+                ListLine.Add(My_Column_EFrameType);
+            }
+            DA.SetData("ListLine", ListLine);
+            //CLOSE           
+            IDBI.CloseDatabase();
+        }
+    }
 }
