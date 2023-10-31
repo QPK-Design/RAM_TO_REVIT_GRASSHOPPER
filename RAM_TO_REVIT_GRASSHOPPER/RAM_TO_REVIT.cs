@@ -702,4 +702,313 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             int My_New_Col_ID = My_LayoutColumn.lUID;
         }
     }
+
+
+    public class GET_RAM_BM_CL : GH_Component
+    {
+
+        public GET_RAM_BM_CL() : base("GET_RAM_BM_CL", "GRBCL", "Get RAM Beam ", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_RAM_BM_CL Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            int In_Story_Count = 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+            {
+                return;
+            }
+            if (In_Story_Count == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            int My_story_count = My_stories.GetCount();
+            IStory My_Story = My_stories.GetAt(In_Story_Count);
+            IBeams My_Beams = My_Story.GetBeams();
+            int Beam_Count = My_Beams.GetCount();
+            SCoordinate P1 = new SCoordinate();
+            SCoordinate P2 = new SCoordinate();
+            List<Autodesk.DesignScript.Geometry.Line> ListLine = new List<Autodesk.DesignScript.Geometry.Line>();
+            //create loop herenthru all count
+            //start..end..step
+            for (int i = 0; i < Beam_Count; i = i + 1)
+            {
+                My_Story.GetBeams().GetAt(i).GetCoordinates(EBeamCoordLoc.eBeamEnds, ref P1, ref P2);
+
+                double P1x = P1.dXLoc;
+                double P1y = P1.dYLoc;
+                double P1z = P1.dZLoc;
+                double P2x = P2.dXLoc;
+                double P2y = P2.dYLoc;
+                double P2z = P2.dZLoc;
+                Autodesk.DesignScript.Geometry.Point PD1 =
+                        Autodesk.DesignScript.Geometry.Point.ByCoordinates(P1x, P1y, P1z);
+                Autodesk.DesignScript.Geometry.Point PD2 =
+                        Autodesk.DesignScript.Geometry.Point.ByCoordinates(P2x, P2y, P2z);
+                Autodesk.DesignScript.Geometry.Line Dline =
+                        Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(PD1, PD2);
+                ListLine.Add(Dline);
+            }
+            //CLOSE       
+            IDBI.CloseDatabase();
+        }
+    }
+
+    public class GET_RAM_BM_id : GH_Component
+    {
+
+        public GET_RAM_BM_id() : base("GET_RAM_BM_id", "GRBId", "Get RAM Beam ID", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_RAM_BM_id Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            int In_Story_Count = 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+            {
+                return;
+            }
+            if (In_Story_Count == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            int My_story_count = My_stories.GetCount();
+            IStory My_Story = My_stories.GetAt(In_Story_Count);
+            IBeams My_Beams = My_Story.GetBeams();
+            int Beam_Count = My_Beams.GetCount();
+            List<int> ListLine = new List<int>();
+            //create loop herenthru all count
+            //start..end..step
+            for (int i = 0; i < Beam_Count; i = i + 1)
+            {
+                int My_Beam_ID = My_Story.GetBeams().GetAt(i).lUID;
+                ListLine.Add(My_Beam_ID);
+            }
+            //CLOSE           
+            IDBI.CloseDatabase();
+        }
+    }
+
+    public class GET_RAM_BM_Number : GH_Component
+    {
+
+        public GET_RAM_BM_Number() : base("GET_RAM_BM_Number", "GRBNo", "Get RAM Beam Number", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_RAM_BM_Number Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            int In_Story_Count = 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+            {
+                return;
+            }
+            if (In_Story_Count == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            int My_story_count = My_stories.GetCount();
+            IStory My_Story = My_stories.GetAt(In_Story_Count);
+            IBeams My_Beams = My_Story.GetBeams();
+            int Beam_Count = My_Beams.GetCount();
+            List<int> ListLine = new List<int>();
+            //create loop herenthru all count
+            //start..end..step
+            for (int i = 0; i < Beam_Count; i = i + 1)
+            {
+                int My_Beam_ID = My_Story.GetBeams().GetAt(i).lLabel;
+                ListLine.Add(My_Beam_ID);
+            }
+            //CLOSE           
+            IDBI.CloseDatabase();
+        }
+    }
+
+    public class GET_RAM_BM_GRAV_OR_LATERAL : GH_Component
+    {
+
+        public GET_RAM_BM_GRAV_OR_LATERAL() : base("GET_RAM_BM_GRAV_OR_LATERAL", "GRBGOL", "Get RAM Beam Grav or Lateral", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_RAM_BM_GRAV_OR_LATERAL Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            //TODO: Ensure List type for output is correct for EFRAMETYPE
+            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            int In_Story_Count = 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+            {
+                return;
+            }
+            if (In_Story_Count == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            int My_story_count = My_stories.GetCount();
+            IStory My_Story = My_stories.GetAt(In_Story_Count);
+            IBeams My_Beams = My_Story.GetBeams();
+            int Beam_Count = My_Beams.GetCount();
+            List<EFRAMETYPE> ListLine = new List<EFRAMETYPE>();
+            //create loop herenthru all count
+            //start..end..step
+            for (int i = 0; i < Beam_Count; i = i + 1)
+            {
+                EFRAMETYPE My_Beam_EFrameType = My_Story.GetBeams().GetAt(i).eFramingType;
+                ListLine.Add(My_Beam_EFrameType);
+            }
+            //CLOSE           
+            IDBI.CloseDatabase();
+        }
+    }
 }
