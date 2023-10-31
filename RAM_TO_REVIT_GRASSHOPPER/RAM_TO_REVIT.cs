@@ -1140,4 +1140,136 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     }
 
 
+    public class CREATE_RAM_STEEL_BRACE : GH_Component
+    {
+
+        public CREATE_RAM_STEEL_BRACE() : base("CREATE_RAM_STEEL_BRACE", "CRSB", "Create RAM Steel Brace", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static CREATE_RAM_STEEL_BRACE Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            //int FloorIndex, string FileName, double StartSupportX, double StartSupportY,
+            //double StartSupportZ, double EndSupportX, double EndSupportY, double EndSupportZ
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            IDBI.LoadDataBase2(FileName, "1");
+
+            IFloorTypes My_floortypes = IModel.GetFloorTypes();
+            IFloorType My_floortype = My_floortypes.GetAt(FloorIndex);
+            EMATERIALTYPES My_BmMaterial = EMATERIALTYPES.ESteelMat;
+
+            ILayoutHorizBrace My_LayoutBrace = My_floortype.GetLayoutHorizBraces().Add(My_BmMaterial,
+                StartSupportX, StartSupportY,
+                StartSupportZ, EndSupportX, EndSupportY, EndSupportZ);
+
+            //CLOSE 
+            IDBI.SaveDatabase();
+            IDBI.CloseDatabase();
+            int My_New_Brace_ID = My_LayoutBrace.lUID;
+        }
+    }
+
+
+    public class GET_GRID_INFO : GH_Component
+    {
+
+        public GET_GRID_INFO() : base("GET_GRID_INFO", "GGI", "Get Grid Info", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_GRID_INFO Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+
+            //Outputs Dictionary type
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            Dictionary<string, object> OutPutPorts = new Dictionary<string, object>();
+            //OPEN
+            string FileName = null;
+            int In_Story_Count = 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IModelGrids My_Model_Grids = IModel.GetGridSystems().GetAt(0).GetGrids();
+            int My_Grid_Count = My_Model_Grids.GetCount();
+            List<double> Grid_Ordinates = new List<double>();
+            List<string> Grid_Name = new List<string>();
+            List<string> Grid_Axis = new List<string>();
+
+            for (int i = 0; i < My_Grid_Count; i = i + 1)
+            {
+                //round up and convert grids from inches to feet
+                double My_Grid_ORD = Math.Ceiling(My_Model_Grids.GetAt(i).dCoordinate_Angle / 12);
+                string My_Model_Grid_Names = My_Model_Grids.GetAt(i).strLabel;
+                string My_Model_Grid_Axis = My_Model_Grids.GetAt(i).eAxis.ToString();
+                string My_String_Cleanup1 = My_Model_Grid_Axis.Remove(0, 5);
+                string My_String_Cleanup2 = My_String_Cleanup1.Remove(1);
+                Grid_Ordinates.Add(My_Grid_ORD);
+                Grid_Name.Add(My_Model_Grid_Names);
+                Grid_Axis.Add(My_String_Cleanup2);
+            }
+            OutPutPorts.Add("Grid_Name", Grid_Name);
+            OutPutPorts.Add("Grid_Ordinates", Grid_Ordinates);
+            OutPutPorts.Add("Grid_Axis", Grid_Axis);
+            //CLOSE 
+
+            IDBI.CloseDatabase();
+        }
+    }
+
+
 }
