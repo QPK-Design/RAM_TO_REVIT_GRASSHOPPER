@@ -1391,4 +1391,86 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     }
 
 
+    public class GET_GRV_COL_FORCES : GH_Component
+    {
+
+        public GET_GRV_COL_FORCES() : base("GET_GRV_COL_FORCES", "GGCF", "Get Gravity Colum Forces", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_GRV_COL_FORCES Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            RAMDATAACCESSLib.IForces1 IForces1 = (RAMDATAACCESSLib.IForces1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IForces_INT);
+            Dictionary<string, object> OutPutPorts = new Dictionary<string, object>();
+            //OPEN
+            string FileName = null;
+            int ColumnID= 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("ColumnID", ref ColumnID))
+            {
+                return;
+            }
+            if (ColumnID == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            double pdDead = 0;
+            double pdPosLLRed = 0;
+            double pdPosLLNonRed = 0;
+            double pdPosLLStorage = 0;
+            double pdPosLLRoof = 0;
+            double pdNegLLRed = 0;
+            double pdNegLLNonRed = 0;
+            double pdNegLLStorage = 0;
+            double pdNegLLRoof = 0;
+            IForces1.GetGrvColForcesForLCase(ColumnID, ref pdDead, ref pdPosLLRed,
+                ref pdPosLLNonRed, ref pdPosLLStorage, ref pdPosLLRoof, ref pdNegLLRed,
+                ref pdNegLLNonRed, ref pdNegLLStorage, ref pdNegLLRoof);
+            IFloorTypes My_floortypes = IModel.GetFloorTypes();
+            int My_floortype_count = My_floortypes.GetCount();
+            //CLOSE           
+            IDBI.CloseDatabase();
+            OutPutPorts.Add("pdDead", pdDead); OutPutPorts.Add("pdPosLLRed", pdPosLLRed);
+            OutPutPorts.Add("pdPosLLNonRed", pdPosLLNonRed); OutPutPorts.Add("pdPosLLStorage", pdPosLLStorage);
+            OutPutPorts.Add("pdPosLLRoof", pdPosLLRoof); OutPutPorts.Add("pdNegLLRed", pdNegLLRed);
+            OutPutPorts.Add("pdNegLLNonRed", pdNegLLNonRed); OutPutPorts.Add("pdNegLLStorage", pdNegLLStorage);
+            OutPutPorts.Add("pdNegLLRoof", pdNegLLRoof);
+        }
+    }
+
+
 }
