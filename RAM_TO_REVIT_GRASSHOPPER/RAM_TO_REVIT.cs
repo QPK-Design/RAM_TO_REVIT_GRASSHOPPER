@@ -1272,4 +1272,57 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     }
 
 
+    public class CREATE_GRIDS : GH_Component
+    {
+
+        public CREATE_GRIDS() : base("CREATE_GRIDS", "CG", "Create Grids", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static CREATE_GRIDS Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            //string FileName, string XGridLabel, double XGridCoord, string YGridLabel, double YGridCoord
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            Dictionary<string, object> OutPutPorts = new Dictionary<string, object>();
+            //OPEN
+            IDBI.LoadDataBase2(FileName, "1");
+            IModelGrids My_Model_Grids = IModel.GetGridSystems().GetAt(0).GetGrids();
+            //CONVERT TO FEET BY *12 ON INPUT GRID COORDINATE
+            IModelGrid MyXIModelGrid = My_Model_Grids.Add(XGridLabel, 
+                EGridAxis.eGridXorRadialAxis, XGridCoord*12);
+            IModelGrid MyYIModelGrid = My_Model_Grids.Add(YGridLabel, 
+                EGridAxis.eGridYorCircularAxis, YGridCoord * 12);
+            int My_NewXIModelGridID = MyXIModelGrid.lUID;
+            int My_NewYIModelGridID = MyYIModelGrid.lUID;
+
+            OutPutPorts.Add("NewXGrid(ID)", My_NewXIModelGridID);
+            OutPutPorts.Add("NewYGrid(ID)", My_NewYIModelGridID);
+            //CLOSE 
+            IDBI.SaveDatabase();
+            IDBI.CloseDatabase();
+        }
+    }
 }
