@@ -792,6 +792,80 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
+
+    public class GET_RAM_BM_SIZE : GH_Component
+    {
+
+        public GET_RAM_BM_SIZE() : base("GET_RAM_BM_SIZE", "GRBS", "Get RAM Beam Size", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_RAM_BM_SIZE Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            int In_Story_Count = 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+            {
+                return;
+            }
+            if (In_Story_Count == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            int My_story_count = My_stories.GetCount();
+            IStory My_Story = My_stories.GetAt(In_Story_Count);
+            IBeams My_Beams = My_Story.GetBeams();
+            int Beam_Count = My_Beams.GetCount();
+            List<string> ListLine = new List<string>();
+            //create loop herenthru all count
+            //start..end..step
+            for (int i = 0; i < Beam_Count; i = i + 1)
+            {
+                string My_Beam_Size = My_Story.GetBeams().GetAt(i).strSectionLabel;
+                ListLine.Add(My_Beam_Size);
+            }
+            //CLOSE           
+            IDBI.CloseDatabase();
+        }
+    }
+
     public class GET_RAM_BM_id : GH_Component
     {
 
@@ -1011,4 +1085,59 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IDBI.CloseDatabase();
         }
     }
+
+
+    public class CREATE_RAM_STEEL_BM : GH_Component
+    {
+
+        public CREATE_RAM_STEEL_BM() : base("CREATE_RAM_STEEL_BM", "CRSB", "Create RAM Steel Beam", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static CREATE_RAM_STEEL_BM Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+        //int FloorIndex, string FileName, double StartSupportX, double StartSupportY,
+        //double StartSupportZ, double EndSupportX, double EndSupportY, double EndSupportZ
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            IDBI.LoadDataBase2(FileName, "1");
+
+            IFloorTypes My_floortypes = IModel.GetFloorTypes();
+            IFloorType My_floortype = My_floortypes.GetAt(FloorIndex);
+            EMATERIALTYPES My_BmMaterial = EMATERIALTYPES.ESteelMat;
+
+            ILayoutBeam My_LayoutBeam = My_floortype.GetLayoutBeams().Add(My_BmMaterial, StartSupportX, StartSupportY,
+                StartSupportZ, EndSupportX, EndSupportY, EndSupportZ);
+
+            //CLOSE 
+            IDBI.SaveDatabase();
+            IDBI.CloseDatabase();
+            int My_New_Beam_ID = My_LayoutBeam.lUID;
+        }
+    }
+
+
 }
