@@ -651,4 +651,55 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IDBI.CloseDatabase();
         }
     }
+
+
+    public class CREATE_RAM_STEEL_COL : GH_Component
+    {
+
+        public CREATE_RAM_STEEL_COL() : base("CREATE_RAM_STEEL_COL", "CRSC", "Create RAM Steel Column", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static CREATE_RAM_STEEL_COL Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            //int FloorIndex, string FileName, double XX, double YY, double ZTop, double ZBot
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            IDBI.LoadDataBase2(FileName, "1");
+
+            IFloorTypes My_floortypes = IModel.GetFloorTypes();
+            IFloorType My_floortype = My_floortypes.GetAt(FloorIndex);
+            EMATERIALTYPES My_ColMaterial = EMATERIALTYPES.ESteelMat;
+
+            ILayoutColumn My_LayoutColumn = My_floortype.GetLayoutColumns().Add(My_ColMaterial, XX, YY, ZTop, ZBot);
+
+            //CLOSE 
+            IDBI.SaveDatabase();
+            IDBI.CloseDatabase();
+            int My_New_Col_ID = My_LayoutColumn.lUID;
+        }
+    }
 }
