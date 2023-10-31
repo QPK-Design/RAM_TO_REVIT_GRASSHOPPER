@@ -1325,4 +1325,70 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IDBI.CloseDatabase();
         }
     }
+
+
+    public class GET_NUM_LOAD_CASES : GH_Component
+    {
+
+        public GET_NUM_LOAD_CASES() : base("GET_NUM_LOAD_CASES", "GNLC", "Get Number of Load Cases", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_NUM_LOAD_CASES Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            RAMDATAACCESSLib.IForces2 IForces2 = (RAMDATAACCESSLib.IForces2)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IForces2_INT);
+
+            //OPEN
+            string FileName = null;
+            int In_Story_Count = 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+
+            EAnalysisResultType My_EAnalysisResultType = EAnalysisResultType.DefaultResultType;
+            int plNumAnalysisCases = 0;
+
+            //these methods work when accessing IFORCES2 so accessing IFORCES2 correctly?
+            Type MyIForces2_Type = IForces2.GetType();
+            int MyIforces2_Hashcode = IForces2.GetHashCode();
+            IForces2.GetNumAnalysisCases(My_EAnalysisResultType, ref plNumAnalysisCases);
+
+            //CLOSE           
+            IDBI.CloseDatabase();
+        }
+    }
+
+
 }
