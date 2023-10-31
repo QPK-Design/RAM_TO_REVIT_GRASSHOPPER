@@ -1473,4 +1473,193 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     }
 
 
+    public class CREATE_FLOOR_TYPE : GH_Component
+    {
+
+        public CREATE_FLOOR_TYPE() : base("CREATE_FLOOR_TYPE", "CFT", "Create Floor Type", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static CREATE_FLOOR_TYPE Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddTextParameter("FloorTypeName", "FTN", "Floor Type Name", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+
+            //OPEN
+            string FileName = null;
+            string FloorTypeName = null;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("FloorTypeName", ref FloorTypeName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+
+            IFloorTypes My_floortypes = IModel.GetFloorTypes();
+            IFloorType My_New_floortype = My_floortypes.Add(FloorTypeName);
+            int MyFlrTypeID = My_New_floortype.lUID;
+
+            //CLOSE
+            IDBI.SaveDatabase();
+            IDBI.CloseDatabase();
+
+            return MyFlrTypeID;
+        }
+    }
+
+
+    public class GET_STORY_IDS : GH_Component
+    {
+
+        public GET_STORY_IDS() : base("GET_STORY_IDS", "GSIds", "Get Story IDs", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_STORY_IDS Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            //TODO: Ensure List type for output is correct for EFRAMETYPE
+            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            int Story_Count = My_stories.GetCount();
+            List<int> ListLine = new List<int>();
+            for (int i = 0; i < Story_Count; i = i + 1)
+            {
+                int My_Story_Id = My_stories.GetAt(i).lUID;
+                ListLine.Add(My_Story_Id);
+            }
+            //CLOSE           
+            IDBI.CloseDatabase();
+        }
+    }
+
+
+    public class GET_STORY_NAMES : GH_Component
+    {
+
+        public GET_STORY_NAMES() : base("GET_STORY_NAMES", "GSN", "Get Story Names", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_STORY_NAMES Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            //TODO: Ensure List type for output is correct for EFRAMETYPE
+            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            int Story_Count = My_stories.GetCount();
+            List<string> ListLine = new List<string>();
+            for (int i = 0; i < Story_Count; i = i + 1)
+            {
+                string My_Story_Names = My_stories.GetAt(i).strLabel;
+                ListLine.Add(My_Story_Names);
+            }
+            //CLOSE
+            DA.SetData("ListLine", ListLine);
+            IDBI.CloseDatabase();
+        }
+    }
 }
