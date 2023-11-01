@@ -672,7 +672,12 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("FloorIndex", "FI", "Floor Index", GH_ParamAccess.item);
+            pManager.AddNumberParameter("XX", "XX", "XX", GH_ParamAccess.item);
+            pManager.AddNumberParameter("YY", "YY", "YY", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ZTop", "ZT", "Z Top", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ZBot", "ZB", "Z Bottom", GH_ParamAccess.item);
             //int FloorIndex, string FileName, double XX, double YY, double ZTop, double ZBot
         }
 
@@ -689,6 +694,44 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
+            string FileName = null;
+            int FloorIndex = 0;
+            double XX = 0.0;
+            double YY = 0.0;
+            double ZTop = 0.0;
+            double ZBot = 0.0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("FloorIndex", ref FloorIndex))
+            {
+                return;
+            }
+            if (FloorIndex == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("XX", ref XX))
+            {
+                return;
+            }
+            if (!DA.GetData("YY", ref YY))
+            {
+                return;
+            }
+            if (!DA.GetData("ZTop", ref ZTop))
+            {
+                return;
+            }
+            if (!DA.GetData("ZBot", ref ZBot))
+            {
+                return;
+            }
             IDBI.LoadDataBase2(FileName, "1");
 
             IFloorTypes My_floortypes = IModel.GetFloorTypes();
@@ -1106,9 +1149,16 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
-        //int FloorIndex, string FileName, double StartSupportX, double StartSupportY,
-        //double StartSupportZ, double EndSupportX, double EndSupportY, double EndSupportZ
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("FloorIndex", "FI", "Floor Index", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartSupportX", "SSX", "Start Support X", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartSupportY", "SSY", "Start Support Y", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartSupportZ", "SSZ", "Start Support Z", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndSupportX", "ESX", "End Support X", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndSupportY", "ESY", "End Support Y", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndSupportX", "ESZ", "End Support Z", GH_ParamAccess.item);
+            //int FloorIndex, string FileName, double StartSupportX, double StartSupportY,
+            //double StartSupportZ, double EndSupportX, double EndSupportY, double EndSupportZ
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -1124,6 +1174,54 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
+            string FileName = null;
+            int FloorIndex= 0;
+            double StartSupportX = 0.0;
+            double StartSupportY = 0.0;
+            double StartSupportZ = 0.0;
+            double EndSupportX = 0.0;
+            double EndSupportY = 0.0;
+            double EndSupportZ = 0.0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("FloorIndex", ref FloorIndex))
+            {
+                return;
+            }
+            if (FloorIndex == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("StartSupportX", ref StartSupportX))
+            {
+                return;
+            }
+            if (!DA.GetData("StartSupportY", ref StartSupportX))
+            {
+                return;
+            }
+            if (!DA.GetData("StartSupportZ", ref StartSupportX))
+            {
+                return;
+            }
+            if (!DA.GetData("EndSupportX", ref EndSupportX))
+            {
+                return;
+            }
+            if (!DA.GetData("EndSupportY", ref EndSupportY))
+            {
+                return;
+            }
+            if (!DA.GetData("EndSupportZ", ref EndSupportZ))
+            {
+                return;
+            }
             IDBI.LoadDataBase2(FileName, "1");
 
             IFloorTypes My_floortypes = IModel.GetFloorTypes();
@@ -1159,7 +1257,14 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("FloorIndex", "FI", "Floor Index", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartSupportX", "SSX", "Start Support X", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartSupportY", "SSY", "Start Support Y", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartSupportZ", "SSZ", "Start Support Z", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndSupportX", "ESX", "End Support X", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndSupportY", "ESY", "End Support Y", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndSupportX", "ESZ", "End Support Z", GH_ParamAccess.item);
             //int FloorIndex, string FileName, double StartSupportX, double StartSupportY,
             //double StartSupportZ, double EndSupportX, double EndSupportY, double EndSupportZ
 
@@ -1178,6 +1283,54 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
+            string FileName = null;
+            int FloorIndex = 0;
+            double StartSupportX = 0.0;
+            double StartSupportY = 0.0;
+            double StartSupportZ = 0.0;
+            double EndSupportX = 0.0;
+            double EndSupportY = 0.0;
+            double EndSupportZ = 0.0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("FloorIndex", ref FloorIndex))
+            {
+                return;
+            }
+            if (FloorIndex == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("StartSupportX", ref StartSupportX))
+            {
+                return;
+            }
+            if (!DA.GetData("StartSupportY", ref StartSupportX))
+            {
+                return;
+            }
+            if (!DA.GetData("StartSupportZ", ref StartSupportX))
+            {
+                return;
+            }
+            if (!DA.GetData("EndSupportX", ref EndSupportX))
+            {
+                return;
+            }
+            if (!DA.GetData("EndSupportY", ref EndSupportY))
+            {
+                return;
+            }
+            if (!DA.GetData("EndSupportZ", ref EndSupportZ))
+            {
+                return;
+            }
             IDBI.LoadDataBase2(FileName, "1");
 
             IFloorTypes My_floortypes = IModel.GetFloorTypes();
@@ -1290,7 +1443,11 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddTextParameter("XGridLabel", "XGL", "X Grid Label", GH_ParamAccess.item);
+            pManager.AddNumberParameter("XGridCoord", "XGC", "X Grid Coordinate", GH_ParamAccess.item);
+            pManager.AddTextParameter("YGridLabel", "YGL", "Y Grid Label", GH_ParamAccess.item);
+            pManager.AddNumberParameter("YGridCoord", "YGC", "Y Grid Coordinate", GH_ParamAccess.item);
             //string FileName, string XGridLabel, double XGridCoord, string YGridLabel, double YGridCoord
         }
 
@@ -1308,6 +1465,44 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             Dictionary<string, object> OutPutPorts = new Dictionary<string, object>();
             //OPEN
+            string FileName = null;
+            string XGridLabel = null;
+            string YGridLabel = null;
+            double XGridCoord = 0.0;
+            double YGridCoord = 0.0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("XGridLabel", ref XGridLabel))
+            {
+                return;
+            }
+            if (XGridLabel == null || XGridLabel.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("YGridLabel", ref YGridLabel))
+            {
+                return;
+            }
+            if (YGridLabel == null || YGridLabel.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("XGridCoord", ref XGridCoord))
+            {
+                return;
+            }
+            if (!DA.GetData("YGridCoord", ref YGridCoord))
+            {
+                return;
+            }
+
             IDBI.LoadDataBase2(FileName, "1");
             IModelGrids My_Model_Grids = IModel.GetGridSystems().GetAt(0).GetGrids();
             //CONVERT TO FEET BY *12 ON INPUT GRID COORDINATE
@@ -1414,7 +1609,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddLineParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1497,7 +1692,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddLineParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1537,7 +1732,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IDBI.SaveDatabase();
             IDBI.CloseDatabase();
 
-            return MyFlrTypeID;
+            DA.SetData("ListLine", MyFlrTypeID);
         }
     }
 
@@ -1567,7 +1762,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             //TODO: Ensure List type for output is correct for EFRAMETYPE
-            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+            pManager.AddLineParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
