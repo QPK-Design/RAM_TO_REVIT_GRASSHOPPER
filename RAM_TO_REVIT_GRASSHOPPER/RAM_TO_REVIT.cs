@@ -62,10 +62,10 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IFloorTypes My_floortypes = IModel.GetFloorTypes();
 
             int My_floortype_count = My_floortypes.GetCount();
-            DA.SetData("FloorTypeCount", My_floortype_count);
 
             //CLOSE
             IDBI.CloseDatabase();
+            DA.SetData("FloorTypeCount", My_floortype_count);
         }
     }
 
