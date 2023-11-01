@@ -1995,7 +1995,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             catch (Exception ex)
             {
 
-                throw;
+                throw(ex);
             }
             finally
             {
@@ -2097,9 +2097,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
         }
 
-    }
-
-    class RAM_GEOMETRY { 
 
         internal static int GetStoryIDFromName(RAMDATAACCESSLib.IModel IModel, string StoryName)
         {
@@ -2119,4 +2116,5 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             throw new ArgumentException("Could not find a story named " + StoryName);
         }
     }
+
 }
