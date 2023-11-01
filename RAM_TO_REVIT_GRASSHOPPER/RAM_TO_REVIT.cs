@@ -323,7 +323,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             int Column_Count = My_Columns.GetCount();
             SCoordinate P1 = new SCoordinate();
             SCoordinate P2 = new SCoordinate();
-            List<Autodesk.DesignScript.Geometry.Line> ListLine = new List<Autodesk.DesignScript.Geometry.Line>();
+            List<Rhino.Geometry.Line> ListLine = new List<Rhino.Geometry.Line>();
             //create loop herenthru all count
             //start..end..step
             for (int i = 0; i < Column_Count; i = i + 1)
@@ -335,12 +335,12 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 double P2x = P2.dXLoc;
                 double P2y = P2.dYLoc;
                 double P2z = P2.dZLoc;
-                Autodesk.DesignScript.Geometry.Point PD1 =
-                    Autodesk.DesignScript.Geometry.Point.ByCoordinates(P1x, P1y, P1z);
-                Autodesk.DesignScript.Geometry.Point PD2 =
-                    Autodesk.DesignScript.Geometry.Point.ByCoordinates(P2x, P2y, P2z);
-                Autodesk.DesignScript.Geometry.Line Dline =
-                    Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(PD1, PD2);
+                Rhino.Geometry.Point3d PD1 =
+                        new Rhino.Geometry.Point3d(P1x, P1y, P1z);
+                Rhino.Geometry.Point3d PD2 =
+                        new Rhino.Geometry.Point3d(P2x, P2y, P2z);
+                Rhino.Geometry.Line Dline =
+                    new Rhino.Geometry.Line(PD1, PD2);
                 ListLine.Add(Dline);
             }
             DA.SetData("ListLine", ListLine);
@@ -767,7 +767,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             int Beam_Count = My_Beams.GetCount();
             SCoordinate P1 = new SCoordinate();
             SCoordinate P2 = new SCoordinate();
-            List<Autodesk.DesignScript.Geometry.Line> ListLine = new List<Autodesk.DesignScript.Geometry.Line>();
+            List<Rhino.Geometry.Line> ListLine = new List<Rhino.Geometry.Line>();
             //create loop herenthru all count
             //start..end..step
             for (int i = 0; i < Beam_Count; i = i + 1)
@@ -780,12 +780,12 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 double P2x = P2.dXLoc;
                 double P2y = P2.dYLoc;
                 double P2z = P2.dZLoc;
-                Autodesk.DesignScript.Geometry.Point PD1 =
-                        Autodesk.DesignScript.Geometry.Point.ByCoordinates(P1x, P1y, P1z);
-                Autodesk.DesignScript.Geometry.Point PD2 =
-                        Autodesk.DesignScript.Geometry.Point.ByCoordinates(P2x, P2y, P2z);
-                Autodesk.DesignScript.Geometry.Line Dline =
-                        Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(PD1, PD2);
+                Rhino.Geometry.Point3d PD1 =
+                        new Rhino.Geometry.Point3d(P1x, P1y, P1z);
+                Rhino.Geometry.Point3d PD2 =
+                        new Rhino.Geometry.Point3d(P2x, P2y, P2z);
+                Rhino.Geometry.Line Dline =
+                        new Rhino.Geometry.Line(PD1, PD2);
                 ListLine.Add(Dline);
             }
             //CLOSE       
@@ -1713,11 +1713,11 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
             Dictionary<string, object> ReturnValues = new Dictionary<string, object>();
 
-            List<Autodesk.DesignScript.Geometry.Point> StartPoints = new List<Autodesk.DesignScript.Geometry.Point>();
-            List<Autodesk.DesignScript.Geometry.Point> EndPoints = new List<Autodesk.DesignScript.Geometry.Point>();
+            List<Rhino.Geometry.Point3d> StartPoints = new List<Rhino.Geometry.Point3d>();
+            List<Rhino.Geometry.Point3d> EndPoints = new List<Rhino.Geometry.Point3d>();
             List<int> ColNums = new List<int>();
             List<string> ColSizes = new List<string>();
-            List<Autodesk.DesignScript.Geometry.Line> AllOutLines = new List<Autodesk.DesignScript.Geometry.Line>();
+            List<Rhino.Geometry.Line> AllOutLines = new List<Rhino.Geometry.Line>();
             List<string> XGrids = new List<string>();
             List<string> YGrids = new List<string>();
 
@@ -1762,12 +1762,12 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
                         int retVal = Col1.GetEndCoordinates(ref P1, ref P2);
 
-                        Point StartPoint = Point.ByCoordinates(P1.dXLoc, P1.dYLoc, P1.dZLoc);
-                        Point EndPoint = Point.ByCoordinates(P2.dXLoc, P2.dYLoc, P2.dZLoc);
+                        Rhino.Geometry.Point3d StartPoint = new Rhino.Geometry.Point3d(P1.dXLoc, P1.dYLoc, P1.dZLoc);
+                        Rhino.Geometry.Point3d EndPoint = new Rhino.Geometry.Point3d(P2.dXLoc, P2.dYLoc, P2.dZLoc);
 
                         string ColLabel = Col1.strSectionLabel;
 
-                        Autodesk.DesignScript.Geometry.Line NewLine = Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(StartPoint, EndPoint);
+                        Rhino.Geometry.Line NewLine = new Rhino.Geometry.Line(StartPoint, EndPoint);
 
                         string XGrid;
                         string YGrid;
@@ -1792,7 +1792,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 ReturnValues.Add("XGrids", XGrids);
                 ReturnValues.Add("YGrids", YGrids);
 
-                return ReturnValues;
+                DA.SetData("ListLine", ReturnValues);
 
 
             }
