@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Grasshopper.Kernel.Parameters;
+using System.Security.Cryptography.X509Certificates;
 
 namespace RAM_TO_REVIT_GRASSHOPPER
 {
@@ -2117,4 +2119,126 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
+
+    public class GET_RAM_BM_STUD_CAMBER_MRatio : GH_Component
+    {
+
+        public GET_RAM_BM_STUD_CAMBER_MRatio() : base("GET_RAM_BM_STUD_CAMBER_MRatio", "GRBSCMR", "Get RAM Beam Stud Camber MRatio", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_RAM_BM_STUD_CAMBER_MRatio Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StoryID", "CId", "Column ID", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            Dictionary<string, object> OutPutPorts = new Dictionary<string, object>();
+            //OPEN
+            string FileName = null;
+            int StoryID = 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("StoryID", ref StoryID))
+            {
+                return;
+            }
+            if (StoryID == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            int My_story_count = My_stories.GetCount();
+
+            IStory My_Story_BY_id = My_stories.Get(StoryID);
+
+            List<double> Cambers = new List<double>();
+            List<int> TotalNumsOfStuds = new List<int>();
+            List<double> StrengthRatios = new List<double>();
+            List<double> DeflectionRatios = new List<double>();
+            List<int> BeamNums = new List<int>();
+            List<int> BeamIDs = new List<int>();
+
+            IBeams My_Beams = My_Story_BY_id.GetBeams();
+            int Beam_Count = My_Beams.GetCount();
+
+            for (int i = 0; i < Beam_Count; i = i + 1)
+            {
+                IBeam My_Beam = My_Story_BY_id.GetBeams().GetAt(i);
+
+                EFRAMETYPE My_Beam_EFrameType = My_Beam.eFramingType;
+
+                if (My_Beam_EFrameType == EFRAMETYPE.MemberIsGravity)
+                {
+
+                    int SizeofArray = 0;
+                    object ITEM = 1;
+                    double Camber = My_Beam.dCamber;
+
+                    DAArray My_Array_of_Studs = My_Beam.GetSteelDesignResult().GetNumStudsInSegments();
+                    My_Array_of_Studs.GetSize(ref SizeofArray);
+
+                    double My_Moment_DemandCapRatio = My_Beam.GetSteelDesignResult().dDesignCapacityInteraction;
+                    double My_Deflection_DemandCapRatio = My_Beam.GetSteelDesignResult().dCriticalDeflectionInteraction;
+
+                    List<int> ListLine = new List<int>();
+                    //loop thru those studs in a segment and get them in a list then cast them from object to int to .sum it up....
+                    for (int j = 0; j < SizeofArray; j = j + 1)
+                    {
+                        My_Array_of_Studs.GetAt(j, ref ITEM);
+                        ListLine.Add((int)ITEM);
+                    }
+                    int TotalofStuds = ListLine.Sum();
+
+                    BeamNums.Add(My_Beam.lLabel);
+                    BeamIDs.Add(My_Beam.lUID);
+                    Cambers.Add(Camber);
+                    TotalNumsOfStuds.Add(TotalofStuds);
+                    StrengthRatios.Add(Math.Round(My_Moment_DemandCapRatio, 2));
+                    DeflectionRatios.Add(Math.Round(My_Deflection_DemandCapRatio, 2));
+                }
+            }
+
+
+            OutPutPorts.Add("GravityBeamIDs", BeamIDs);
+            OutPutPorts.Add("GravityBeamNums", BeamNums);
+            OutPutPorts.Add("Camber", Cambers);
+            OutPutPorts.Add("TotalNumStuds", TotalNumsOfStuds);
+            //Round up results
+            OutPutPorts.Add("StrengthRatios", StrengthRatios);
+            OutPutPorts.Add("DeflectionRatios", DeflectionRatios);
+
+            //CLOSE           
+            IDBI.CloseDatabase();
+        }
+    }
 }
