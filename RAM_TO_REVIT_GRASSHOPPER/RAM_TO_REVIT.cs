@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Grasshopper.Kernel.Parameters;
 using System.Security.Cryptography.X509Certificates;
+using Rhino.Geometry;
 
 namespace RAM_TO_REVIT_GRASSHOPPER
 {
@@ -1350,6 +1351,241 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
+
+    public class CREATE_RAM_STEEL_HORZ_BRACE : GH_Component
+    {
+
+        public CREATE_RAM_STEEL_HORZ_BRACE() : base("CREATE_RAM_STEEL_HORZ_BRACE", "CRSHB", "Create RAM Steel Horizontal Brace", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static CREATE_RAM_STEEL_HORZ_BRACE Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("FloorIndex", "FI", "Floor Index", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartSupportX", "SSX", "Start Support X", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartSupportY", "SSY", "Start Support Y", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StartSupportZ", "SSZ", "Start Support Z", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndSupportX", "ESX", "End Support X", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndSupportY", "ESY", "End Support Y", GH_ParamAccess.item);
+            pManager.AddNumberParameter("EndSupportX", "ESZ", "End Support Z", GH_ParamAccess.item);
+            //int FloorIndex, string FileName, double StartSupportX, double StartSupportY,
+            //double StartSupportZ, double EndSupportX, double EndSupportY, double EndSupportZ
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            int FloorIndex = 0;
+            double StartSupportX = 0.0;
+            double StartSupportY = 0.0;
+            double StartSupportZ = 0.0;
+            double EndSupportX = 0.0;
+            double EndSupportY = 0.0;
+            double EndSupportZ = 0.0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("FloorIndex", ref FloorIndex))
+            {
+                return;
+            }
+            if (FloorIndex == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("StartSupportX", ref StartSupportX))
+            {
+                return;
+            }
+            if (!DA.GetData("StartSupportY", ref StartSupportX))
+            {
+                return;
+            }
+            if (!DA.GetData("StartSupportZ", ref StartSupportX))
+            {
+                return;
+            }
+            if (!DA.GetData("EndSupportX", ref EndSupportX))
+            {
+                return;
+            }
+            if (!DA.GetData("EndSupportY", ref EndSupportY))
+            {
+                return;
+            }
+            if (!DA.GetData("EndSupportZ", ref EndSupportZ))
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+
+            IFloorTypes My_floortypes = IModel.GetFloorTypes();
+            IFloorType My_floortype = My_floortypes.GetAt(FloorIndex);
+            EMATERIALTYPES My_BmMaterial = EMATERIALTYPES.ESteelMat;
+
+            ILayoutHorizBrace My_LayoutBrace = My_floortype.GetLayoutHorizBraces().Add(My_BmMaterial,
+                StartSupportX, StartSupportY,
+                StartSupportZ, EndSupportX, EndSupportY, EndSupportZ);
+
+            //CLOSE 
+            IDBI.SaveDatabase();
+            IDBI.CloseDatabase();
+            int My_New_Brace_ID = My_LayoutBrace.lUID;
+        }
+    }
+
+    public class CREATE_RAM_STEEL_VERT_BRACE : GH_Component
+    {
+
+        public CREATE_RAM_STEEL_VERT_BRACE() : base("CREATE_RAM_STEEL_VERT_BRACE", "CRSVB", "Create RAM Steel Vertical Brace", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static CREATE_RAM_STEEL_VERT_BRACE Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StoryID", "SId", "Story ID", GH_ParamAccess.item);
+            pManager.AddNumberParameter("TopStoryID", "TSID", "Top Story ID", GH_ParamAccess.item);
+            pManager.AddNumberParameter("TopX", "TX", "Top X", GH_ParamAccess.item);
+            pManager.AddNumberParameter("TopY", "TY", "Top Y", GH_ParamAccess.item);
+            pManager.AddNumberParameter("TopZ", "TZ", "Top Z", GH_ParamAccess.item);
+            pManager.AddNumberParameter("BotStoryID", "BSID", "Bottom Story ID", GH_ParamAccess.item);
+            pManager.AddNumberParameter("BotX", "BX", "Bottom X", GH_ParamAccess.item);
+            pManager.AddNumberParameter("BotY", "BY", "Bottom Y", GH_ParamAccess.item);
+            pManager.AddNumberParameter("BotZ", "BZ", "Bottom Z", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            int StoryID = 0;
+            int TopStoryID = 0;
+            int BotStoryID = 0;
+            double TopX = 0.0;
+            double TopY = 0.0;
+            double TopZ = 0.0;
+            double BotX = 0.0;
+            double BotY = 0.0;
+            double BotZ = 0.0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("StoryID", ref StoryID))
+            {
+                return;
+            }
+            if (StoryID == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("TopStoryID", ref TopStoryID))
+            {
+                return;
+            }
+            if (StoryID == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("BotStoryID", ref BotStoryID))
+            {
+                return;
+            }
+            if (StoryID == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("TopX", ref TopX))
+            {
+                return;
+            }
+            if (!DA.GetData("TopY", ref TopX))
+            {
+                return;
+            }
+            if (!DA.GetData("TopZ", ref TopX))
+            {
+                return;
+            }
+            if (!DA.GetData("BotX", ref BotX))
+            {
+                return;
+            }
+            if (!DA.GetData("BotY", ref BotY))
+            {
+                return;
+            }
+            if (!DA.GetData("BotZ", ref BotZ))
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+
+            IStories My_storytypes = IModel.GetStories();
+            IStory My_storytype = My_storytypes.Get(StoryID);
+            EMATERIALTYPES My_BmMaterial = EMATERIALTYPES.ESteelMat;
+
+            IVerticalBraces My_VertBraces = My_storytype.GetVerticalBraces();
+            IVerticalBrace My_VertBrace = My_VertBraces.Add(My_BmMaterial, TopStoryID, TopX, TopY, TopZ, BotStoryID, BotX, BotY, BotZ);
+            //CLOSE 
+            IDBI.SaveDatabase();
+            IDBI.CloseDatabase();
+            int My_New_Brace_ID = My_VertBrace.lUID;
+        }
+    }
 
     public class GET_GRID_INFO : GH_Component
     {
