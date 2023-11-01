@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace RAM_TO_REVIT_GRASSHOPPER
 {
@@ -1234,7 +1235,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             Dictionary<string, object> OutPutPorts = new Dictionary<string, object>();
             //OPEN
             string FileName = null;
-            int In_Story_Count = 0;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -1366,7 +1366,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
             //OPEN
             string FileName = null;
-            int In_Story_Count = 0;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -1660,6 +1659,268 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             //CLOSE
             DA.SetData("ListLine", ListLine);
             IDBI.CloseDatabase();
+        }
+    }
+
+
+    public class GET_GRIDS_AT_COL : GH_Component
+    {
+
+        public GET_GRIDS_AT_COL() : base("GET_GRIDS_AT_COL", "GGatC", "Get Grids at Column", "RAM", "Data")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid(""); }
+        }
+        public static GET_GRIDS_AT_COL Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            //TODO: Ensure List type for output is correct for multiple lists in SolveInstance
+            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDB = (RAMDATAACCESSLib.IDBIO1)RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            RAMDATAACCESSLib.IModelGeometry1 IModelGeo = (RAMDATAACCESSLib.IModelGeometry1)RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModelGeometry_INT);
+
+            RAMDATAACCESSLib.IMemberData1 IModelMembers = (RAMDATAACCESSLib.IMemberData1)RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IMemberData_INT);
+
+            string FileName = null;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            LoadRSS(FileName, IDB);
+
+            Dictionary<string, object> ReturnValues = new Dictionary<string, object>();
+
+            List<Autodesk.DesignScript.Geometry.Point> StartPoints = new List<Autodesk.DesignScript.Geometry.Point>();
+            List<Autodesk.DesignScript.Geometry.Point> EndPoints = new List<Autodesk.DesignScript.Geometry.Point>();
+            List<int> ColNums = new List<int>();
+            List<string> ColSizes = new List<string>();
+            List<Autodesk.DesignScript.Geometry.Line> AllOutLines = new List<Autodesk.DesignScript.Geometry.Line>();
+            List<string> XGrids = new List<string>();
+            List<string> YGrids = new List<string>();
+
+            try
+            {
+                int NumfloorTypes = 0;
+
+                //IModel.GetFloorTypes().GetAt(1);
+
+                IModelGeo.GetNumStories(ref NumfloorTypes);
+
+
+                IStories AllStories = IModel.GetStories();
+                int Numstories = AllStories.GetCount();
+
+                for (int i = 0; i < Numstories; i++)
+                {
+                    IStory Story1 = AllStories.GetAt(i);
+
+                    IColumns AllCols = Story1.GetColumns();
+                    int NumCols = AllCols.GetCount();
+
+                    IFloorType ThisFloorType = Story1.GetFloorType();
+
+
+                    IGridSystem MatchingGridSystem;
+                    object OutItem = -1;
+
+                    var GridSystems = ThisFloorType.GetGridSystemIDArray();
+                    GridSystems.GetAt(0, ref OutItem);
+                    MatchingGridSystem = IModel.GetGridSystem((int)OutItem);
+
+                    for (int j = 0; j < NumCols; j++)
+                    {
+                        IColumn Col1 = AllCols.GetAt(j);
+
+                        int ID = Col1.lUID;
+
+
+                        SCoordinate P1 = new SCoordinate();
+                        SCoordinate P2 = new SCoordinate();
+
+                        int retVal = Col1.GetEndCoordinates(ref P1, ref P2);
+
+                        Point StartPoint = Point.ByCoordinates(P1.dXLoc, P1.dYLoc, P1.dZLoc);
+                        Point EndPoint = Point.ByCoordinates(P2.dXLoc, P2.dYLoc, P2.dZLoc);
+
+                        string ColLabel = Col1.strSectionLabel;
+
+                        Autodesk.DesignScript.Geometry.Line NewLine = Autodesk.DesignScript.Geometry.Line.ByStartPointEndPoint(StartPoint, EndPoint);
+
+                        string XGrid;
+                        string YGrid;
+
+                        GetPointGridLoc(MatchingGridSystem, P1.dXLoc, P1.dYLoc, out XGrid, out YGrid);
+
+                        ColNums.Add(Col1.lLabel);
+
+                        XGrids.Add(XGrid);
+                        YGrids.Add(YGrid);
+
+
+
+                    }
+                }
+
+                ReturnValues.Add("ColumnNums", ColNums);
+                //ReturnValues.Add("Column Start", StartPoints);
+                //ReturnValues.Add("Column End", EndPoints);
+                //ReturnValues.Add("Column Lines", AllOutLines);
+                //ReturnValues.Add("Column Size", ColSizes);
+                ReturnValues.Add("XGrids", XGrids);
+                ReturnValues.Add("YGrids", YGrids);
+
+                return ReturnValues;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            finally
+            {
+                IDB.CloseDatabase();
+
+                IModelGeo = null;
+                IDB = null;
+                RAMDataAccess = null;
+
+            }
+
+        }
+
+        private static void LoadRSS(string Filename, RAMDATAACCESSLib.IDBIO1 IDB)
+        {
+
+            int LoadStatus = IDB.LoadDataBase2(Filename, "1");
+
+            if (LoadStatus != 0)
+            {
+                //First try and delete the tempfile in the same directory
+                string BUFilename = Filename.Remove(Filename.Length - 3) + "usr";
+                try
+                {
+                    File.Delete(BUFilename);
+                }
+                catch
+                {
+
+                }
+
+                //Also, try and delete the tempfile directory
+                //string WorkingDir = @"C:\ProgramData\Bentley\Engineering\RAM Structural System\Working\";
+                string ProgramDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                string WorkingDir = ProgramDataFolder + @"\Bentley\Engineering\RAM Structural System\Working\";
+
+
+                //string JustFileName = Filename.Substring(Filename.LastIndexOf("\\") + 1);
+
+                System.IO.DirectoryInfo di = new DirectoryInfo(WorkingDir);
+
+                foreach (FileInfo file in di.GetFiles())
+                {
+                    file.Delete();
+                }
+
+                //Ok, try 2
+                LoadStatus = IDB.LoadDataBase2(Filename, "1");
+
+                if (LoadStatus != 0)
+                {
+                    throw new ArgumentException("Could not load file " + Filename);
+                }
+
+            }
+
+        }
+
+        /// <summary>
+        /// Gets grid coordinates given a grid system and a point
+        /// </summary>
+        /// <param name="MatchingGridSystem"></param>
+        /// <param name="XLoc"></param>
+        /// <param name="YLoc"></param>
+        /// <param name="XGrid"></param>
+        /// <param name="YGrid"></param>
+        private static void GetPointGridLoc(IGridSystem MatchingGridSystem, double XLoc, double YLoc, out string XGrid, out string YGrid)
+        {
+            IModelGrids ModelGrids = MatchingGridSystem.GetGrids();
+
+            int NumGrids = ModelGrids.GetCount();
+
+            XGrid = "";
+            YGrid = "";
+
+            for (int k = 0; k < NumGrids; k++)
+            {
+                IModelGrid TestGrid = ModelGrids.GetAt(k);
+                EGridAxis GridAxis = TestGrid.eAxis;
+
+                double GridValue = TestGrid.dCoordinate_Angle;
+
+                if (GridAxis == EGridAxis.eGridXorRadialAxis)
+                {
+                    if (GridValue - XLoc < 0.0001)
+                    {
+                        XGrid = TestGrid.strLabel;
+                    }
+
+                }
+                else if (GridAxis == EGridAxis.eGridYorCircularAxis)
+                {
+                    if (GridValue - YLoc < 0.0001)
+                    {
+                        YGrid = TestGrid.strLabel;
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    class RAM_GEOMETRY { 
+
+        internal static int GetStoryIDFromName(RAMDATAACCESSLib.IModel IModel, string StoryName)
+        {
+            IStories My_stories = IModel.GetStories();
+            int Story_Count = My_stories.GetCount();
+
+            for (int i = 0; i < Story_Count; i = i + 1)
+            {
+                IStory MatchedStory = My_stories.GetAt(i);
+
+                if (MatchedStory.strLabel == StoryName)
+                {
+                    return MatchedStory.lUID;
+                }
+            }
+
+            throw new ArgumentException("Could not find a story named " + StoryName);
         }
     }
 }
