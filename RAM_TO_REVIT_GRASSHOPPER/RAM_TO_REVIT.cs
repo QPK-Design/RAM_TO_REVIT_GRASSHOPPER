@@ -1603,7 +1603,8 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ColumnID", "CId", "Column ID", GH_ParamAccess.item);
 
         }
 
