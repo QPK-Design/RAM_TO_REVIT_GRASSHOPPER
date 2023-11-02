@@ -134,9 +134,9 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
             IFloorType My_floortype = My_floortypes.GetAt(TotalNumOfFlrTypeInListFormat);
             int My_FloorType_ID = My_floortype.lUID;
-            DA.SetData("FloorTypeID", My_FloorType_ID);
             //  
             IDBI.CloseDatabase();
+            DA.SetData("FloorTypeID", My_FloorType_ID);
         }
     }
 
@@ -362,7 +362,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("B3F43701-3D84-4113-97A5-BC55C8D25FDB"); }
         }
         public static GET_RAM_COL_SIZE Instance
         {
@@ -438,7 +438,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("B3F43701-3D84-4113-97A5-BC55C8D25FDB"); }
         }
         public static GET_RAM_COL_ID Instance
         {
@@ -514,7 +514,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("0164E389-0C5D-4009-813D-746D2C94EBB1"); }
         }
         public static GET_RAM_COL_Number Instance
         {
@@ -590,7 +590,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("97D69572-18E6-457C-B148-9C49F6E4A05A"); }
         }
         public static GET_RAM_COL_IS_GRAV_OR_LATERAL Instance
         {
@@ -666,7 +666,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("BBD9931B-EC6D-4CB9-BA3F-C494A0609DCC"); }
         }
         public static CREATE_RAM_STEEL_COL Instance
         {
@@ -686,7 +686,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddNumberParameter("ColumnID", "CID", "Column ID", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -747,6 +747,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IDBI.SaveDatabase();
             IDBI.CloseDatabase();
             int My_New_Col_ID = My_LayoutColumn.lUID;
+            DA.SetData("ColumnID", My_New_Col_ID);
         }
     }
 
@@ -760,7 +761,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("A92B2F96-8CB0-46FE-A82A-F2580C507136"); }
         }
         public static GET_RAM_BM_CL Instance
         {
@@ -849,7 +850,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("CB18D58F-21E1-4E45-B4D3-A3F1C7EDB367"); }
         }
         public static GET_RAM_BM_SIZE Instance
         {
@@ -922,7 +923,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("49B511EF-E5F1-4155-89F4-EBB2D1D321E6"); }
         }
         public static GET_RAM_BM_id Instance
         {
@@ -995,7 +996,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("872176A8-F602-47B4-B8BD-1A4A70FB71B2"); }
         }
         public static GET_RAM_BM_Number Instance
         {
@@ -1068,7 +1069,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("0E64A4EE-6316-4634-B4E1-84CE2FAB7348"); }
         }
         public static GET_RAM_BM_GRAV_OR_LATERAL Instance
         {
@@ -1143,7 +1144,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("FABB75A0-357A-4519-A544-2CFA298FC5D8"); }
         }
         public static CREATE_RAM_STEEL_BM Instance
         {
@@ -1166,7 +1167,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddTextParameter("BeamID", "BId", "Beam ID", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1238,6 +1239,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IDBI.SaveDatabase();
             IDBI.CloseDatabase();
             int My_New_Beam_ID = My_LayoutBeam.lUID;
+            DA.SetData("BeamID", My_New_Beam_ID);
         }
     }
 
@@ -1251,7 +1253,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("70990BB1-13DC-459D-9E07-5EA26CADCFE7"); }
         }
         public static CREATE_RAM_STEEL_BRACE Instance
         {
@@ -1275,7 +1277,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddTextParameter("BraceID", "BId", "Brace ID", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1361,7 +1363,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("F1B9863D-8EC1-4BF1-B91F-64EAF8E73259"); }
         }
         public static CREATE_RAM_STEEL_HORZ_BRACE Instance
         {
@@ -1385,7 +1387,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddTextParameter("BraceID", "BId", "Brace ID", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1458,6 +1460,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IDBI.SaveDatabase();
             IDBI.CloseDatabase();
             int My_New_Brace_ID = My_LayoutBrace.lUID;
+            DA.SetData("BraceID", My_New_Brace_ID);
         }
     }
 
@@ -1470,7 +1473,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("D6B9323C-09E9-442E-9B4F-EC647E25DD5C"); }
         }
         public static CREATE_RAM_STEEL_VERT_BRACE Instance
         {
@@ -1494,7 +1497,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddNumberParameter("VertBraceID", "VBID", "Vertical Brace ID", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1584,6 +1587,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IDBI.SaveDatabase();
             IDBI.CloseDatabase();
             int My_New_Brace_ID = My_VertBrace.lUID;
+            DA.SetData("VertBraceID", My_New_Brace_ID);
         }
     }
 
@@ -1596,7 +1600,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("53DA9F9B-A064-4EB9-A436-3613C57A640F"); }
         }
         public static GET_GRID_INFO Instance
         {
@@ -1611,7 +1615,9 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddTextParameter("GridName", "GN", "Grid Name", GH_ParamAccess.item);
+            pManager.AddNumberParameter("GridOrdinates", "GO", "Grid Ordinates", GH_ParamAccess.item);
+            pManager.AddTextParameter("GridAxis", "GA", "Grid Axis", GH_ParamAccess.item);
 
             //Outputs Dictionary type
         }
@@ -1653,9 +1659,9 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 Grid_Name.Add(My_Model_Grid_Names);
                 Grid_Axis.Add(My_String_Cleanup2);
             }
-            OutPutPorts.Add("Grid_Name", Grid_Name);
-            OutPutPorts.Add("Grid_Ordinates", Grid_Ordinates);
-            OutPutPorts.Add("Grid_Axis", Grid_Axis);
+            DA.SetData("GridName", Grid_Name);
+            DA.SetData("GridOrdinates", Grid_Ordinates);
+            DA.SetData("GridAxis", Grid_Axis);
             //CLOSE 
 
             IDBI.CloseDatabase();
@@ -1672,7 +1678,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("494C575A-5A6D-4192-ABC0-B75ED0BA14F5"); }
         }
         public static CREATE_GRIDS Instance
         {
@@ -1691,7 +1697,8 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddNumberParameter("XGridID", "XGId", "New X Grid ID", GH_ParamAccess.item);
+            pManager.AddNumberParameter("YGridID", "YGId", "New Y Grid ID", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1751,8 +1758,8 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             int My_NewXIModelGridID = MyXIModelGrid.lUID;
             int My_NewYIModelGridID = MyYIModelGrid.lUID;
 
-            OutPutPorts.Add("NewXGrid(ID)", My_NewXIModelGridID);
-            OutPutPorts.Add("NewYGrid(ID)", My_NewYIModelGridID);
+            DA.SetData("XGridID", My_NewXIModelGridID);
+            DA.SetData("YGridID", My_NewYIModelGridID);
             //CLOSE 
             IDBI.SaveDatabase();
             IDBI.CloseDatabase();
@@ -1769,7 +1776,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("7560EDB0-D3CF-4982-A971-FA2375C83E09"); }
         }
         public static GET_NUM_LOAD_CASES Instance
         {
@@ -1784,7 +1791,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddNumberParameter("NumLoadCases", "NLC", "Number of Load Cases", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1819,6 +1826,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
             //CLOSE           
             IDBI.CloseDatabase();
+            DA.SetData("NumLoadCases", plNumAnalysisCases);
         }
     }
 
@@ -1832,7 +1840,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("C841197D-10B1-4C6C-999B-DBE66A19EB71"); }
         }
         public static GET_GRV_COL_FORCES Instance
         {
@@ -1915,7 +1923,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("7673A797-439F-4D15-9B59-F048911135B4"); }
         }
         public static CREATE_FLOOR_TYPE Instance
         {
@@ -1985,7 +1993,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("F6E9374F-D46A-47AD-ADBD-4600EEC7FC03"); }
         }
         public static GET_STORY_IDS Instance
         {
@@ -2045,7 +2053,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("A47CE45F-4C7D-4BD3-B013-E4412ACCE731"); }
         }
         public static GET_STORY_NAMES Instance
         {
@@ -2106,7 +2114,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("F7E98124-695E-4977-8B3D-613D38F7EFFC"); }
         }
         public static GET_GRIDS_AT_COL Instance
         {
@@ -2365,7 +2373,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid(""); }
+            get { return new Guid("8394805E-3430-4524-8FA0-9AC344C4E309"); }
         }
         public static GET_RAM_BM_STUD_CAMBER_MRatio Instance
         {
@@ -2381,7 +2389,12 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter(, , , GH_ParamAccess.item);
+            pManager.AddNumberParameter("GravityBeamIDs", "GBIds", "Gravity Beam IDs", GH_ParamAccess.item);
+            pManager.AddNumberParameter("GravityBeamNums", "GBNs", "Gravity Beam Nums", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Camber", "C", "Camber", GH_ParamAccess.item);
+            pManager.AddNumberParameter("TotalNumStuds", "TNSs", "Total Number of Studs", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StrengthRatios", "SRs", "Strength Ratios", GH_ParamAccess.item);
+            pManager.AddNumberParameter("DeflectionRatios", "DRs", "Deflection Ratios", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -2465,13 +2478,13 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
 
 
-            OutPutPorts.Add("GravityBeamIDs", BeamIDs);
-            OutPutPorts.Add("GravityBeamNums", BeamNums);
-            OutPutPorts.Add("Camber", Cambers);
-            OutPutPorts.Add("TotalNumStuds", TotalNumsOfStuds);
+            DA.SetData("GravityBeamIDs", BeamIDs);
+            DA.SetData("GravityBeamNums", BeamNums);
+            DA.SetData("Camber", Cambers);
+            DA.SetData("TotalNumStuds", TotalNumsOfStuds);
             //Round up results
-            OutPutPorts.Add("StrengthRatios", StrengthRatios);
-            OutPutPorts.Add("DeflectionRatios", DeflectionRatios);
+            DA.SetData("StrengthRatios", StrengthRatios);
+            DA.SetData("DeflectionRatios", DeflectionRatios);
 
             //CLOSE           
             IDBI.CloseDatabase();
