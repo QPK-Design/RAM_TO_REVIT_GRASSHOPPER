@@ -438,7 +438,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
         public override Guid ComponentGuid
         {
-            get { return new Guid("B3F43701-3D84-4113-97A5-BC55C8D25FDB"); }
+            get { return new Guid("6120FAC6-E4E9-4DF7-A941-2D3B22294659"); }
         }
         public static GET_RAM_COL_ID Instance
         {
