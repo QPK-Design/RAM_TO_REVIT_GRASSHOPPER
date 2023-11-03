@@ -2130,7 +2130,14 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             //TODO: Ensure List type for output is correct for multiple lists in SolveInstance
-            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+            //pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+            pManager.AddPointParameter("StartPoints", "SP", "Start Points", GH_ParamAccess.list);
+            pManager.AddPointParameter("EndPoints", "EP", "End Points", GH_ParamAccess.list);
+            pManager.AddTextParameter("ColumnSizes", "CS", "Column Sizes", GH_ParamAccess.list);
+            pManager.AddNumberParameter("ColumnNumbers", "CN", "Column Numbers", GH_ParamAccess.list);
+            pManager.AddLineParameter("ColumnLines", "CL", "Column Lines", GH_ParamAccess.list);
+            pManager.AddNumberParameter("XGrids", "XG", "X Grids", GH_ParamAccess.list);
+            pManager.AddNumberParameter("YGrids", "YG", "Y Grids", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -2226,16 +2233,13 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                     }
                 }
 
-                ReturnValues.Add("ColumnNums", ColNums);
-                //ReturnValues.Add("Column Start", StartPoints);
-                //ReturnValues.Add("Column End", EndPoints);
-                //ReturnValues.Add("Column Lines", AllOutLines);
-                //ReturnValues.Add("Column Size", ColSizes);
-                ReturnValues.Add("XGrids", XGrids);
-                ReturnValues.Add("YGrids", YGrids);
-
-                DA.SetData("ListLine", ReturnValues);
-
+                DA.SetData("ColumnNumbers", ColNums);
+                DA.SetData("StartPoints", StartPoints);
+                DA.SetData("EndPoints", EndPoints);
+                DA.SetData("ColumnLines", AllOutLines);
+                DA.SetData("ColumnSize", ColSizes);
+                DA.SetData("XGrids", XGrids);
+                DA.SetData("YGrids", YGrids);
 
             }
             catch (Exception ex)
@@ -2404,7 +2408,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
             RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
-            Dictionary<string, object> OutPutPorts = new Dictionary<string, object>();
             //OPEN
             string FileName = null;
             int StoryID = 0;
