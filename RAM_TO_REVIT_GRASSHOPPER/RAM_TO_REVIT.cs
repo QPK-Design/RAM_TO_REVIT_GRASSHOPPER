@@ -866,7 +866,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+            pManager.AddTextParameter("BeamSize", "BS", "Beam Size", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -911,6 +911,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             //CLOSE           
             IDBI.CloseDatabase();
+            DA.SetData("BeamSize", ListLine);
         }
     }
 
