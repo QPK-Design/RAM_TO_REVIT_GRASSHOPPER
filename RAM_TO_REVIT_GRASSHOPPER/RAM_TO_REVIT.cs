@@ -1167,7 +1167,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("BeamID", "BId", "Beam ID", GH_ParamAccess.item);
+            pManager.AddNumberParameter("BeamID", "BId", "Beam ID", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1235,10 +1235,11 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             ILayoutBeam My_LayoutBeam = My_floortype.GetLayoutBeams().Add(My_BmMaterial, StartSupportX, StartSupportY,
                 StartSupportZ, EndSupportX, EndSupportY, EndSupportZ);
 
+            int My_New_Beam_ID = My_LayoutBeam.lUID;
+
             //CLOSE 
             IDBI.SaveDatabase();
             IDBI.CloseDatabase();
-            int My_New_Beam_ID = My_LayoutBeam.lUID;
             DA.SetData("BeamID", My_New_Beam_ID);
         }
     }
