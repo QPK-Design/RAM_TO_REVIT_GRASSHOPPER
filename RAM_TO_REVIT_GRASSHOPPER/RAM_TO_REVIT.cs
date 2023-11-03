@@ -378,7 +378,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+            pManager.AddTextParameter("ColumnSize", "CS", "Column Size", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -422,9 +422,9 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 string My_Column_Size = My_Story.GetColumns().GetAt(i).strSectionLabel;
                 ListLine.Add(My_Column_Size);
             }
-            DA.SetData("ListLine", ListLine);
             //CLOSE           
             IDBI.CloseDatabase();
+            DA.SetData("ColumnSize", ListLine);
         }
     }
 
