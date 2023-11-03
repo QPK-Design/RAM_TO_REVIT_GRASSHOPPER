@@ -1166,8 +1166,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             pManager.AddNumberParameter("EndSupportX", "ESX", "End Support X", GH_ParamAccess.item);
             pManager.AddNumberParameter("EndSupportY", "ESY", "End Support Y", GH_ParamAccess.item);
             pManager.AddNumberParameter("EndSupportX", "ESZ", "End Support Z", GH_ParamAccess.item);
-            //int FloorIndex, string FileName, double StartSupportX, double StartSupportY,
-            //double StartSupportZ, double EndSupportX, double EndSupportY, double EndSupportZ
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
