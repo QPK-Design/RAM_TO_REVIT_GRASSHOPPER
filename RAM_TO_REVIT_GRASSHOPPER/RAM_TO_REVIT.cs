@@ -2009,7 +2009,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             //TODO: Ensure List type for output is correct for EFRAMETYPE
-            pManager.AddLineParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StoryIDs", "SIds", "Story IDs", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -2038,7 +2038,8 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 int My_Story_Id = My_stories.GetAt(i).lUID;
                 ListLine.Add(My_Story_Id);
             }
-            //CLOSE           
+            //CLOSE
+            DA.SetData("StoryIDs", ListLine);
             IDBI.CloseDatabase();
         }
     }
