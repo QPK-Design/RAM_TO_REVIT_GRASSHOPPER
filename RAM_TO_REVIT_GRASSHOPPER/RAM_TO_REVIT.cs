@@ -606,7 +606,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+            pManager.AddNumberParameter("GravOrLateral", "GorL", "Grav or Lateral", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -650,9 +650,9 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 string My_Column_EFrameType = My_Story.GetColumns().GetAt(i).eFramingType.ToString();
                 ListLine.Add(My_Column_EFrameType);
             }
-            DA.SetData("ListLine", ListLine);
             //CLOSE           
             IDBI.CloseDatabase();
+            DA.SetData("GravOrLateral", ListLine);
         }
     }
 
