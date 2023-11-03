@@ -1277,7 +1277,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("BraceID", "BId", "Brace ID", GH_ParamAccess.item);
+            pManager.AddNumberParameter("BraceID", "BId", "Brace ID", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1346,10 +1346,11 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 StartSupportX, StartSupportY,
                 StartSupportZ, EndSupportX, EndSupportY, EndSupportZ);
 
+            int My_New_Brace_ID = My_LayoutBrace.lUID;
             //CLOSE 
             IDBI.SaveDatabase();
             IDBI.CloseDatabase();
-            int My_New_Brace_ID = My_LayoutBrace.lUID;
+            DA.SetData("BraceID", My_New_Brace_ID);
         }
     }
 
@@ -1615,9 +1616,9 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("GridName", "GN", "Grid Name", GH_ParamAccess.item);
-            pManager.AddNumberParameter("GridOrdinates", "GO", "Grid Ordinates", GH_ParamAccess.item);
-            pManager.AddTextParameter("GridAxis", "GA", "Grid Axis", GH_ParamAccess.item);
+            pManager.AddTextParameter("GridName", "GN", "Grid Name", GH_ParamAccess.list);
+            pManager.AddNumberParameter("GridOrdinates", "GO", "Grid Ordinates", GH_ParamAccess.list);
+            pManager.AddTextParameter("GridAxis", "GA", "Grid Axis", GH_ParamAccess.list);
 
             //Outputs Dictionary type
         }
@@ -1692,7 +1693,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             pManager.AddNumberParameter("XGridCoord", "XGC", "X Grid Coordinate", GH_ParamAccess.item);
             pManager.AddTextParameter("YGridLabel", "YGL", "Y Grid Label", GH_ParamAccess.item);
             pManager.AddNumberParameter("YGridCoord", "YGC", "Y Grid Coordinate", GH_ParamAccess.item);
-            //string FileName, string XGridLabel, double XGridCoord, string YGridLabel, double YGridCoord
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
