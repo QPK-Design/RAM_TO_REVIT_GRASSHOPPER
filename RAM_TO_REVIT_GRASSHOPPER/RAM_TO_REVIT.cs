@@ -1086,7 +1086,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             //TODO: Ensure List type for output is correct for EFRAMETYPE
-            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+            pManager.AddTextParameter("GravOrLateral", "GorL", "Grav or Lateral", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1131,6 +1131,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             //CLOSE           
             IDBI.CloseDatabase();
+            DA.SetDataList("GravOrLateral", ListLine);
         }
     }
 
