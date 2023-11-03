@@ -1057,6 +1057,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             //CLOSE           
             IDBI.CloseDatabase();
+            DA.SetData("BeamNumbers", ListLine);
         }
     }
 
@@ -1086,7 +1087,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             //TODO: Ensure List type for output is correct for EFRAMETYPE
-            pManager.AddTextParameter("GravOrLateral", "GorL", "Grav or Lateral", GH_ParamAccess.item);
+            pManager.AddNumberParameter("GravOrLateral", "GorL", "Grav or Lateral", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
