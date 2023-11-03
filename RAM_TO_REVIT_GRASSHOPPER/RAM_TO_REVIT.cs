@@ -348,7 +348,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetData("ColumnCoordinateList", ListLine);
+            DA.SetDataList("ColumnCoordinateList", ListLine);
         }
     }
 
@@ -378,7 +378,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("ColumnSize", "CS", "Column Size", GH_ParamAccess.item);
+            pManager.AddTextParameter("ColumnSize", "CS", "Column Size", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -424,7 +424,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetData("ColumnSize", ListLine);
+            DA.SetDataList("ColumnSize", ListLine);
         }
     }
 
@@ -454,7 +454,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("ColumnID", "CId", "Column ID", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ColumnID", "CId", "Column ID", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -500,7 +500,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetData("ColumnID", ListLine);
+            DA.SetDataList("ColumnID", ListLine);
         }
     }
 
@@ -576,7 +576,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetData("ColumnNumber", ListLine);
+            DA.SetDataList("ColumnNumber", ListLine);
         }
     }
 
@@ -606,7 +606,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("GravOrLateral", "GorL", "Grav or Lateral", GH_ParamAccess.item);
+            pManager.AddNumberParameter("GravOrLateral", "GorL", "Grav or Lateral", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -652,7 +652,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetData("GravOrLateral", ListLine);
+            DA.SetDataList("GravOrLateral", ListLine);
         }
     }
 
@@ -837,7 +837,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             //CLOSE       
             IDBI.CloseDatabase();
-            DA.SetData("BeamCoordinateList", ListLine);
+            DA.SetDataList("BeamCoordinateList", ListLine);
         }
     }
 
@@ -912,7 +912,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetData("BeamSize", ListLine);
+            DA.SetDataList("BeamSize", ListLine);
         }
     }
 
@@ -941,7 +941,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("BeamIDs", "BIDs", "Beam IDs", GH_ParamAccess.item);
+            pManager.AddNumberParameter("BeamIDs", "BIDs", "Beam IDs", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -986,7 +986,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetData("BeamIDs", ListLine);
+            DA.SetDataList("BeamIDs", ListLine);
         }
     }
 
@@ -1060,7 +1060,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetData("BeamNumbers", ListLine);
+            DA.SetDataList("BeamNumbers", ListLine);
         }
     }
 
@@ -2054,7 +2054,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 ListLine.Add(My_Story_Id);
             }
             //CLOSE
-            DA.SetData("StoryIDs", ListLine);
+            DA.SetDataList("StoryIDs", ListLine);
             IDBI.CloseDatabase();
         }
     }
@@ -2085,7 +2085,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             //TODO: Ensure List type for output is correct for EFRAMETYPE
-            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+            pManager.AddTextParameter("Story Names", "SN", "Story Names", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -2115,7 +2115,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 ListLine.Add(My_Story_Names);
             }
             //CLOSE
-            DA.SetData("ListLine", ListLine);
+            DA.SetDataList("StoryNames", ListLine);
             IDBI.CloseDatabase();
         }
     }
@@ -2407,12 +2407,12 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("GravityBeamIDs", "GBIds", "Gravity Beam IDs", GH_ParamAccess.item);
-            pManager.AddNumberParameter("GravityBeamNums", "GBNs", "Gravity Beam Nums", GH_ParamAccess.item);
-            pManager.AddNumberParameter("Camber", "C", "Camber", GH_ParamAccess.item);
-            pManager.AddNumberParameter("TotalNumStuds", "TNSs", "Total Number of Studs", GH_ParamAccess.item);
-            pManager.AddNumberParameter("StrengthRatios", "SRs", "Strength Ratios", GH_ParamAccess.item);
-            pManager.AddNumberParameter("DeflectionRatios", "DRs", "Deflection Ratios", GH_ParamAccess.item);
+            pManager.AddLineParameter("GravityBeamIDs", "GBIds", "Gravity Beam IDs", GH_ParamAccess.item);
+            pManager.AddLineParameter("GravityBeamNums", "GBNs", "Gravity Beam Nums", GH_ParamAccess.item);
+            pManager.AddLineParameter("Camber", "C", "Camber", GH_ParamAccess.item);
+            pManager.AddLineParameter("TotalNumStuds", "TNSs", "Total Number of Studs", GH_ParamAccess.item);
+            pManager.AddLineParameter("StrengthRatios", "SRs", "Strength Ratios", GH_ParamAccess.item);
+            pManager.AddLineParameter("DeflectionRatios", "DRs", "Deflection Ratios", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -2495,13 +2495,13 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
 
 
-            DA.SetData("GravityBeamIDs", BeamIDs);
-            DA.SetData("GravityBeamNums", BeamNums);
-            DA.SetData("Camber", Cambers);
-            DA.SetData("TotalNumStuds", TotalNumsOfStuds);
             //Round up results
-            DA.SetData("StrengthRatios", StrengthRatios);
-            DA.SetData("DeflectionRatios", DeflectionRatios);
+            DA.SetDataList("GravityBeamIDs", BeamIDs);
+            DA.SetDataList("GravityBeamNums", BeamNums);
+            DA.SetDataList("Camber", Cambers);
+            DA.SetDataList("TotalNumStuds", TotalNumsOfStuds);
+            DA.SetDataList("StrengthRatios", StrengthRatios);
+            DA.SetDataList("DeflectionRatios", DeflectionRatios);
 
             //CLOSE           
             IDBI.CloseDatabase();
