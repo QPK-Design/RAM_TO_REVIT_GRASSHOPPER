@@ -1856,7 +1856,15 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddLineParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+            pManager.AddNumberParameter("DeadLoad", "DL", "Dead Load", GH_ParamAccess.list);
+            pManager.AddNumberParameter("PosLLRed", "PLLR", "Positive Live Load Red", GH_ParamAccess.list);
+            pManager.AddNumberParameter("PosLLNonRed", "PLLNR", "Positive Live Load Non Red", GH_ParamAccess.list);
+            pManager.AddNumberParameter("PosLLStorage", "PLLS", "Positive Live Load Storage", GH_ParamAccess.list);
+            pManager.AddNumberParameter("PosLLRoof", "PLLR", "Positive Live Load Roof", GH_ParamAccess.list);
+            pManager.AddNumberParameter("NegLLRed", "NLLR", "Negative Live Load Red", GH_ParamAccess.list);
+            pManager.AddNumberParameter("NegLLNonRed", "NLLNR", "Negative Live Load Non Red", GH_ParamAccess.list);
+            pManager.AddNumberParameter("NegLLStorage", "NLLS", "Negative Live Load Storage", GH_ParamAccess.list);
+            pManager.AddNumberParameter("NegLLRoof", "NLLR", "Negative Live Load Roof", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1868,10 +1876,9 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             RAMDATAACCESSLib.IForces1 IForces1 = (RAMDATAACCESSLib.IForces1)
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IForces_INT);
-            Dictionary<string, object> OutPutPorts = new Dictionary<string, object>();
             //OPEN
             string FileName = null;
-            int ColumnID= 0;
+            int ColumnID = 0;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -1905,11 +1912,15 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             int My_floortype_count = My_floortypes.GetCount();
             //CLOSE           
             IDBI.CloseDatabase();
-            OutPutPorts.Add("pdDead", pdDead); OutPutPorts.Add("pdPosLLRed", pdPosLLRed);
-            OutPutPorts.Add("pdPosLLNonRed", pdPosLLNonRed); OutPutPorts.Add("pdPosLLStorage", pdPosLLStorage);
-            OutPutPorts.Add("pdPosLLRoof", pdPosLLRoof); OutPutPorts.Add("pdNegLLRed", pdNegLLRed);
-            OutPutPorts.Add("pdNegLLNonRed", pdNegLLNonRed); OutPutPorts.Add("pdNegLLStorage", pdNegLLStorage);
-            OutPutPorts.Add("pdNegLLRoof", pdNegLLRoof);
+            DA.SetData("pdDead", pdDead); 
+            DA.SetData("pdPosLLRed", pdPosLLRed);
+            DA.SetData("pdPosLLNonRed", pdPosLLNonRed); 
+            DA.SetData("pdPosLLStorage", pdPosLLStorage);
+            DA.SetData("pdPosLLRoof", pdPosLLRoof); 
+            DA.SetData("pdNegLLRed", pdNegLLRed);
+            DA.SetData("pdNegLLNonRed", pdNegLLNonRed); 
+            DA.SetData("pdNegLLStorage", pdNegLLStorage);
+            DA.SetData("pdNegLLRoof", pdNegLLRoof);
         }
     }
 
@@ -2130,8 +2141,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            //TODO: Ensure List type for output is correct for multiple lists in SolveInstance
-            //pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
             pManager.AddPointParameter("StartPoints", "SP", "Start Points", GH_ParamAccess.list);
             pManager.AddPointParameter("EndPoints", "EP", "End Points", GH_ParamAccess.list);
             pManager.AddTextParameter("ColumnSizes", "CS", "Column Sizes", GH_ParamAccess.list);
