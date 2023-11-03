@@ -530,7 +530,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("ListLine", "LL", "List of Lines", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ColumnNumber", "CN", "Column Number", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -574,9 +574,9 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 int My_Column_ID = My_Story.GetColumns().GetAt(i).lLabel; ;
                 ListLine.Add(My_Column_ID);
             }
-            DA.SetData("ListLine", ListLine);
             //CLOSE           
             IDBI.CloseDatabase();
+            DA.SetData("ColumnNumber", ListLine);
         }
     }
 
