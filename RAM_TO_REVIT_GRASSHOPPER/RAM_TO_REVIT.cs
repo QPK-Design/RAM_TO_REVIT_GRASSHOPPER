@@ -37,7 +37,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("FloorTypeCount", "C", "Number of floor types in model", GH_ParamAccess.item);
+            pManager.AddNumberParameter("FloorTypeCount", "C", "Number of floor types in model", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -202,11 +202,11 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IFloorTypes My_floortypes = IModel.GetFloorTypes();
             IFloorType My_New_floortype = My_floortypes.Add(FloorTypeName);
             int MyFlrTypeID = My_New_floortype.lUID;
-            DA.SetData("FloorTypeID", MyFlrTypeID);
 
             //CLOSE
             IDBI.SaveDatabase();
             IDBI.CloseDatabase();
+            DA.SetData("FloorTypeID", MyFlrTypeID);
 
         }
     }
@@ -257,9 +257,9 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IDBI.LoadDataBase2(FileName, "1");
             IStories My_stories = IModel.GetStories();
             int My_story_count = My_stories.GetCount();
-            DA.SetData("My_story_count", My_story_count);
             //CLOSE           
             IDBI.CloseDatabase();
+            DA.SetData("My_story_count", My_story_count);
         }
     }
 
@@ -777,7 +777,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddTextParameter("BeamCoordinateList", "BCL", "Beam Coordinate List", GH_ParamAccess.list);
+            pManager.AddLineParameter("BeamCoordinateList", "BCL", "Beam Coordinate List", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
