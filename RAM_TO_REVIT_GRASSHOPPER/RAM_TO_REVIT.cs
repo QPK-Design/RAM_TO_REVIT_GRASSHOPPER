@@ -235,7 +235,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("My_story_count", "MSC", "My story count", GH_ParamAccess.item);
+            pManager.AddNumberParameter("My_story_count", "MSC", "My story count", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -267,7 +267,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_COL_CL : GH_Component
     {
 
-        public GET_RAM_COL_CL() : base("GET_STORY_COUNT", "GSC", "Get Story Count", "RAM", "Column")
+        public GET_RAM_COL_CL() : base("GET_RAM_COL_CL", "GRCCL", "Get RAM Column Coordinate List", "RAM", "Column")
         {
 
         }
