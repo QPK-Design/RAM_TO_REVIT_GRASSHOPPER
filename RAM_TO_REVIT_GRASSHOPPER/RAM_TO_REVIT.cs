@@ -2149,10 +2149,10 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             pManager.AddPointParameter("StartPoints", "SP", "Start Points", GH_ParamAccess.list);
             pManager.AddPointParameter("EndPoints", "EP", "End Points", GH_ParamAccess.list);
             pManager.AddTextParameter("ColumnSizes", "CS", "Column Sizes", GH_ParamAccess.list);
-            pManager.AddNumberParameter("ColumnNumbers", "CN", "Column Numbers", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("ColumnNumbers", "CN", "Column Numbers", GH_ParamAccess.list);
             pManager.AddLineParameter("ColumnLines", "CL", "Column Lines", GH_ParamAccess.list);
-            pManager.AddNumberParameter("XGrids", "XG", "X Grids", GH_ParamAccess.list);
-            pManager.AddNumberParameter("YGrids", "YG", "Y Grids", GH_ParamAccess.list);
+            pManager.AddTextParameter("XGrids", "XG", "X Grids", GH_ParamAccess.list);
+            pManager.AddTextParameter("YGrids", "YG", "Y Grids", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
