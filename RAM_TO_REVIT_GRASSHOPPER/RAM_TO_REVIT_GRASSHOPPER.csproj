@@ -78,4 +78,7 @@
     <Error Condition="!Exists('..\packages\Grasshopper.7.29.23107.3001\build\net48\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.7.29.23107.3001\build\net48\Grasshopper.targets'))" />
   </Target>
   <Import Project="..\packages\Grasshopper.7.29.23107.3001\build\net48\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.7.29.23107.3001\build\net48\Grasshopper.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>copy D:\jmarris\Documents\dataset-RAM_API_323888-Sgambelluri-AU2019\MARRIS_RAM_TO_REVIT_DYNAMO\RAM_TO_REVIT_GRASSHOPPER\RAM_TO_REVIT_GRASSHOPPER\bin\Debug\RAM_TO_REVIT_GRASSHOPPER.dll %25appdata%25\Grasshopper\Libraries\RAM_TO_REVIT_GRASSHOPPER.gha /y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

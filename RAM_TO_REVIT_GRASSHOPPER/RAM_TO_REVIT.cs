@@ -235,7 +235,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("My_story_count", "MSC", "My story count", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("My_story_count", "MSC", "My story count", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -283,7 +283,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
@@ -372,7 +372,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
@@ -448,13 +448,13 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("ColumnID", "CId", "Column ID", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("ColumnID", "CId", "Column ID", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -524,13 +524,13 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("ColumnNumber", "CN", "Column Number", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("ColumnNumber", "CN", "Column Number", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -600,13 +600,13 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("GravOrLateral", "GorL", "Grav or Lateral", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("GravOrLateral", "GorL", "Grav or Lateral", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -676,7 +676,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddNumberParameter("FloorIndex", "FI", "Floor Index", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("FloorIndex", "FI", "Floor Index", GH_ParamAccess.item);
             pManager.AddNumberParameter("XX", "XX", "XX", GH_ParamAccess.item);
             pManager.AddNumberParameter("YY", "YY", "YY", GH_ParamAccess.item);
             pManager.AddNumberParameter("ZTop", "ZT", "Z Top", GH_ParamAccess.item);
@@ -686,7 +686,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("ColumnID", "CID", "Column ID", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("ColumnID", "CID", "Column ID", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -771,7 +771,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
@@ -1083,7 +1083,8 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddNumberParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+
 
         }
 
@@ -2085,7 +2086,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
             //TODO: Ensure List type for output is correct for EFRAMETYPE
-            pManager.AddTextParameter("Story Names", "SN", "Story Names", GH_ParamAccess.list);
+            pManager.AddTextParameter("StoryNames", "SN", "Story Names", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
