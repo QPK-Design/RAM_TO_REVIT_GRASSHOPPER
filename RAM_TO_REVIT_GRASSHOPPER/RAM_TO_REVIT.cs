@@ -122,7 +122,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             if (!DA.GetData("TotalNumOfFlrTypeInListFormat", ref TotalNumOfFlrTypeInListFormat)) 
             {
                 return;
-            } 
+            }
             if (TotalNumOfFlrTypeInListFormat == 0)
             {
                 return;
@@ -657,99 +657,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     }
 
 
-    public class CREATE_RAM_STEEL_COL : GH_Component
-    {
-
-        public CREATE_RAM_STEEL_COL() : base("CREATE_RAM_STEEL_COL", "CRSC", "Create RAM Steel Column", "RAM", "Column")
-        {
-
-        }
-        public override Guid ComponentGuid
-        {
-            get { return new Guid("BBD9931B-EC6D-4CB9-BA3F-C494A0609DCC"); }
-        }
-        public static CREATE_RAM_STEEL_COL Instance
-        {
-            get;
-            private set;
-        }
-        protected override void RegisterInputParams(GH_InputParamManager pManager)
-        {
-            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("FloorIndex", "FI", "Floor Index", GH_ParamAccess.item);
-            pManager.AddNumberParameter("XX", "XX", "XX", GH_ParamAccess.item);
-            pManager.AddNumberParameter("YY", "YY", "YY", GH_ParamAccess.item);
-            pManager.AddNumberParameter("ZTop", "ZT", "Z Top", GH_ParamAccess.item);
-            pManager.AddNumberParameter("ZBot", "ZB", "Z Bottom", GH_ParamAccess.item);
-            //int FloorIndex, string FileName, double XX, double YY, double ZTop, double ZBot
-        }
-
-        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
-        {
-            pManager.AddIntegerParameter("ColumnID", "CID", "Column ID", GH_ParamAccess.item);
-        }
-
-        protected override void SolveInstance(IGH_DataAccess DA)
-        {
-            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
-            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
-                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
-            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
-                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
-            //OPEN
-            string FileName = null;
-            int FloorIndex = 0;
-            double XX = 0.0;
-            double YY = 0.0;
-            double ZTop = 0.0;
-            double ZBot = 0.0;
-            if (!DA.GetData("FileName", ref FileName))
-            {
-                return;
-            }
-            if (FileName == null || FileName.Length == 0)
-            {
-                return;
-            }
-            if (!DA.GetData("FloorIndex", ref FloorIndex))
-            {
-                return;
-            }
-            if (FloorIndex == 0)
-            {
-                return;
-            }
-            if (!DA.GetData("XX", ref XX))
-            {
-                return;
-            }
-            if (!DA.GetData("YY", ref YY))
-            {
-                return;
-            }
-            if (!DA.GetData("ZTop", ref ZTop))
-            {
-                return;
-            }
-            if (!DA.GetData("ZBot", ref ZBot))
-            {
-                return;
-            }
-            IDBI.LoadDataBase2(FileName, "1");
-
-            IFloorTypes My_floortypes = IModel.GetFloorTypes();
-            IFloorType My_floortype = My_floortypes.GetAt(FloorIndex);
-            EMATERIALTYPES My_ColMaterial = EMATERIALTYPES.ESteelMat;
-
-            ILayoutColumn My_LayoutColumn = My_floortype.GetLayoutColumns().Add(My_ColMaterial, XX, YY, ZTop, ZBot);
-
-            //CLOSE 
-            IDBI.SaveDatabase();
-            IDBI.CloseDatabase();
-            int My_New_Col_ID = My_LayoutColumn.lUID;
-            DA.SetData("ColumnID", My_New_Col_ID);
-        }
-    }
 
 
     public class GET_RAM_BM_CL : GH_Component
@@ -1139,7 +1046,99 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             DA.SetDataList("GravOrLateral", ListLine);
         }
     }
+    public class CREATE_RAM_STEEL_COL : GH_Component
+    {
 
+        public CREATE_RAM_STEEL_COL() : base("CREATE_RAM_STEEL_COL", "CRSC", "Create RAM Steel Column", "RAM", "Column")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid("BBD9931B-EC6D-4CB9-BA3F-C494A0609DCC"); }
+        }
+        public static CREATE_RAM_STEEL_COL Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("FloorIndex", "FI", "Floor Index", GH_ParamAccess.item);
+            pManager.AddNumberParameter("XX", "XX", "XX", GH_ParamAccess.item);
+            pManager.AddNumberParameter("YY", "YY", "YY", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ZTop", "ZT", "Z Top", GH_ParamAccess.item);
+            pManager.AddNumberParameter("ZBot", "ZB", "Z Bottom", GH_ParamAccess.item);
+            //int FloorIndex, string FileName, double XX, double YY, double ZTop, double ZBot
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddIntegerParameter("ColumnID", "CID", "Column ID", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            int FloorIndex = 0;
+            double XX = 0.0;
+            double YY = 0.0;
+            double ZTop = 0.0;
+            double ZBot = 0.0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("FloorIndex", ref FloorIndex))
+            {
+                return;
+            }
+            if (FloorIndex == 0)
+            {
+                return;
+            }
+            if (!DA.GetData("XX", ref XX))
+            {
+                return;
+            }
+            if (!DA.GetData("YY", ref YY))
+            {
+                return;
+            }
+            if (!DA.GetData("ZTop", ref ZTop))
+            {
+                return;
+            }
+            if (!DA.GetData("ZBot", ref ZBot))
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+
+            IFloorTypes My_floortypes = IModel.GetFloorTypes();
+            IFloorType My_floortype = My_floortypes.GetAt(FloorIndex);
+            EMATERIALTYPES My_ColMaterial = EMATERIALTYPES.ESteelMat;
+
+            ILayoutColumn My_LayoutColumn = My_floortype.GetLayoutColumns().Add(My_ColMaterial, XX, YY, ZTop, ZBot);
+
+            //CLOSE 
+            IDBI.SaveDatabase();
+            IDBI.CloseDatabase();
+            int My_New_Col_ID = My_LayoutColumn.lUID;
+            DA.SetData("ColumnID", My_New_Col_ID);
+        }
+    }
 
     public class CREATE_RAM_STEEL_BM : GH_Component
     {

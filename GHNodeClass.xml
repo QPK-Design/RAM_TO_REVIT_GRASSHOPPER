@@ -11,7 +11,7 @@
         <![CDATA[public class GET_FLOOR_TYPE_COUNT : GH_Component
     {
 
-        public GET_FLOOR_TYPE_COUNT() : base(, , , "RAM", "Data")
+        public () : base(, , , "RAM", "Data")
         {
 
         }
@@ -19,7 +19,7 @@
         {
             get { return new Guid(""); }
         }
-        public static GET_FLOOR_TYPE_COUNT Instance
+        public static  Instance
         {
             get;
             private set;
