@@ -1664,9 +1664,9 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 Grid_Name.Add(My_Model_Grid_Names);
                 Grid_Axis.Add(My_String_Cleanup2);
             }
-            DA.SetData("GridName", Grid_Name);
-            DA.SetData("GridOrdinates", Grid_Ordinates);
-            DA.SetData("GridAxis", Grid_Axis);
+            DA.SetDataList("GridName", Grid_Name);
+            DA.SetDataList("GridOrdinates", Grid_Ordinates);
+            DA.SetDataList("GridAxis", Grid_Axis);
             //CLOSE 
 
             IDBI.CloseDatabase();
