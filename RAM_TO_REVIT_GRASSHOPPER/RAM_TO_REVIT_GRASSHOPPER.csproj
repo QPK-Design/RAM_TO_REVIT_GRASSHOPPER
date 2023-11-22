@@ -33,27 +33,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ed.Eto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoCommon.8.0.23304.9001\lib\net48\Ed.Eto.dll</HintPath>
-    </Reference>
     <Reference Include="Eto, Version=2.7.0.0, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoCommon.8.0.23304.9001\lib\net48\Eto.dll</HintPath>
+      <HintPath>..\packages\RhinoCommon.7.34.23267.11001\lib\net48\Eto.dll</HintPath>
     </Reference>
-    <Reference Include="GH_IO, Version=8.0.23304.9001, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
-      <HintPath>..\packages\Grasshopper.8.0.23304.9001\lib\net48\GH_IO.dll</HintPath>
+    <Reference Include="GH_IO, Version=7.34.23267.11001, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.7.34.23267.11001\lib\net48\GH_IO.dll</HintPath>
     </Reference>
-    <Reference Include="Grasshopper, Version=8.0.23304.9001, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
-      <HintPath>..\packages\Grasshopper.8.0.23304.9001\lib\net48\Grasshopper.dll</HintPath>
+    <Reference Include="Grasshopper, Version=7.34.23267.11001, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.7.34.23267.11001\lib\net48\Grasshopper.dll</HintPath>
     </Reference>
     <Reference Include="Interop.RAMDATAACCESSLib">
       <HintPath>C:\Program Files\Bentley\Engineering\RAM Structural System\Prog\Interop.RAMDATAACCESSLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Rhino.UI, Version=8.0.23304.9001, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoCommon.8.0.23304.9001\lib\net48\Rhino.UI.dll</HintPath>
+    <Reference Include="Rhino.UI, Version=7.34.23267.11001, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.7.34.23267.11001\lib\net48\Rhino.UI.dll</HintPath>
     </Reference>
-    <Reference Include="RhinoCommon, Version=8.0.23304.9001, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoCommon.8.0.23304.9001\lib\net48\RhinoCommon.dll</HintPath>
+    <Reference Include="RhinoCommon, Version=7.34.23267.11001, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.7.34.23267.11001\lib\net48\RhinoCommon.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -75,13 +72,13 @@
   <PropertyGroup>
     <PostBuildEvent>copy D:\jmarris\Documents\dataset-RAM_API_323888-Sgambelluri-AU2019\MARRIS_RAM_TO_REVIT_DYNAMO\RAM_TO_REVIT_GRASSHOPPER\RAM_TO_REVIT_GRASSHOPPER\bin\Debug\RAM_TO_REVIT_GRASSHOPPER.dll %25appdata%25\Grasshopper\Libraries\RAM_TO_REVIT_GRASSHOPPER.gha /y</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\RhinoCommon.8.0.23304.9001\build\net48\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.8.0.23304.9001\build\net48\RhinoCommon.targets')" />
+  <Import Project="..\packages\RhinoCommon.7.34.23267.11001\build\net48\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.7.34.23267.11001\build\net48\RhinoCommon.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\RhinoCommon.8.0.23304.9001\build\net48\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RhinoCommon.8.0.23304.9001\build\net48\RhinoCommon.targets'))" />
-    <Error Condition="!Exists('..\packages\Grasshopper.8.0.23304.9001\build\net48\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.8.0.23304.9001\build\net48\Grasshopper.targets'))" />
+    <Error Condition="!Exists('..\packages\RhinoCommon.7.34.23267.11001\build\net48\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RhinoCommon.7.34.23267.11001\build\net48\RhinoCommon.targets'))" />
+    <Error Condition="!Exists('..\packages\Grasshopper.7.34.23267.11001\build\net48\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.7.34.23267.11001\build\net48\Grasshopper.targets'))" />
   </Target>
-  <Import Project="..\packages\Grasshopper.8.0.23304.9001\build\net48\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.8.0.23304.9001\build\net48\Grasshopper.targets')" />
+  <Import Project="..\packages\Grasshopper.7.34.23267.11001\build\net48\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.7.34.23267.11001\build\net48\Grasshopper.targets')" />
 </Project>
