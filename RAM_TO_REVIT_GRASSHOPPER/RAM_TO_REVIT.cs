@@ -606,7 +606,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("GravOrLateral", "GorL", "Grav or Lateral", GH_ParamAccess.list);
+            pManager.AddTextParameter("GravOrLateral", "GorL", "Grav or Lateral", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
