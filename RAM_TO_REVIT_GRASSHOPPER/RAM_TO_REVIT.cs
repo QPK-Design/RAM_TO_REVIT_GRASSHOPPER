@@ -842,7 +842,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.list);
 
         }
 
@@ -860,7 +860,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
             string FileName = null;
-            int In_Story_Count = 0;
+            List<int> In_Story_Count = new List<int>;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -873,23 +873,29 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             {
                 return;
             }
-            if (In_Story_Count == 0)
+            if (In_Story_Count.Count == 0) 
             {
                 return;
             }
-            IDBI.LoadDataBase2(FileName, "1");
-            IStories My_stories = IModel.GetStories();
-            int My_story_count = My_stories.GetCount();
-            IStory My_Story = My_stories.GetAt(In_Story_Count);
-            IBeams My_Beams = My_Story.GetBeams();
-            int Beam_Count = My_Beams.GetCount();
-            List<int> ListLine = new List<int>();
-            //create loop herenthru all count
-            //start..end..step
-            for (int i = 0; i < Beam_Count; i = i + 1)
-            {
-                int My_Beam_ID = My_Story.GetBeams().GetAt(i).lUID;
-                ListLine.Add(My_Beam_ID);
+            List<List<int>> ListLine = new List<List<int>>();
+            foreach (int story in In_Story_Count) {
+                List<int> BeamsInStory = new List<int>();
+                IDBI.LoadDataBase2(FileName, "1");
+                IStories My_stories = IModel.GetStories();
+                int My_story_count = My_stories.GetCount();
+                IStory My_Story = My_stories.GetAt(story);
+                IBeams My_Beams = My_Story.GetBeams();
+                int Beam_Count = My_Beams.GetCount();
+                //create loop herenthru all count
+                //start..end..step
+                for (int i = 0; i < Beam_Count; i = i + 1)
+                {
+                    int My_Beam_ID = My_Story.GetBeams().GetAt(i).lUID;
+                    BeamsInStory.Add(My_Beam_ID);
+                }
+
+                ListLine.Add(BeamsInStory);
+
             }
             //CLOSE           
             IDBI.CloseDatabase();
