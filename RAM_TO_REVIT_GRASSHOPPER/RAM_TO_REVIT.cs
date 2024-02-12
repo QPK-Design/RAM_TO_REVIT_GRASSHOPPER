@@ -996,7 +996,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
 
         }
