@@ -2213,7 +2213,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
 
                     IGridSystem MatchingGridSystem;
-                    object OutItem = -1;
+                    object OutItem = 0;
 
                     var GridSystems = ThisFloorType.GetGridSystemIDArray();
                     GridSystems.GetAt(0, ref OutItem);
@@ -2233,18 +2233,19 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
                         Rhino.Geometry.Point3d StartPoint = new Rhino.Geometry.Point3d(P1.dXLoc, P1.dYLoc, P1.dZLoc);
                         Rhino.Geometry.Point3d EndPoint = new Rhino.Geometry.Point3d(P2.dXLoc, P2.dYLoc, P2.dZLoc);
-
                         string ColLabel = Col1.strSectionLabel;
 
                         Rhino.Geometry.Line NewLine = new Rhino.Geometry.Line(StartPoint, EndPoint);
-
                         string XGrid;
                         string YGrid;
 
                         GetPointGridLoc(MatchingGridSystem, P1.dXLoc, P1.dYLoc, out XGrid, out YGrid);
 
+                        StartPoints.Add(StartPoint); 
+                        EndPoints.Add(EndPoint);
+                        ColSizes.Add(ColLabel);
                         ColNums.Add(Col1.lLabel);
-
+                        AllOutLines.Add(NewLine);
                         XGrids.Add(XGrid);
                         YGrids.Add(YGrid);
 
