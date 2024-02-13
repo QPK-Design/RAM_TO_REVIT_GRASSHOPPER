@@ -2409,12 +2409,12 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddLineParameter("GravityBeamIDs", "GBIds", "Gravity Beam IDs", GH_ParamAccess.item);
-            pManager.AddLineParameter("GravityBeamNums", "GBNs", "Gravity Beam Nums", GH_ParamAccess.item);
-            pManager.AddLineParameter("Camber", "C", "Camber", GH_ParamAccess.item);
-            pManager.AddLineParameter("TotalNumStuds", "TNSs", "Total Number of Studs", GH_ParamAccess.item);
-            pManager.AddLineParameter("StrengthRatios", "SRs", "Strength Ratios", GH_ParamAccess.item);
-            pManager.AddLineParameter("DeflectionRatios", "DRs", "Deflection Ratios", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("GravityBeamIDs", "GBIds", "Gravity Beam IDs", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("GravityBeamNums", "GBNs", "Gravity Beam Nums", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Camber", "C", "Camber", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("TotalNumStuds", "TNSs", "Total Number of Studs", GH_ParamAccess.item);
+            pManager.AddNumberParameter("StrengthRatios", "SRs", "Strength Ratios", GH_ParamAccess.item);
+            pManager.AddNumberParameter("DeflectionRatios", "DRs", "Deflection Ratios", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
