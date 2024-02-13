@@ -2231,10 +2231,8 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                         string ColLabel = Col1.strSectionLabel;
 
                         Rhino.Geometry.Line NewLine = new Rhino.Geometry.Line(StartPoint, EndPoint);
-                        string XGrid;
-                        string YGrid;
 
-                        GetPointGridLoc(MatchingGridSystem, P1.dXLoc, P1.dYLoc, out XGrid, out YGrid);
+                        GetPointGridLoc(MatchingGridSystem, P1.dXLoc, P1.dYLoc, out string XGrid, out string YGrid);
 
                         StartPoints.Add(StartPoint); 
                         EndPoints.Add(EndPoint);
@@ -2480,7 +2478,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
                     List<int> ListLine = new List<int>();
                     //loop thru those studs in a segment and get them in a list then cast them from object to int to .sum it up....
-                    for (int j = 0; j < SizeofArray; j = j + 1)
+                    for (int j = 0; j < SizeofArray; j++)
                     {
                         My_Array_of_Studs.GetAt(j, ref ITEM);
                         ListLine.Add((int)ITEM);
