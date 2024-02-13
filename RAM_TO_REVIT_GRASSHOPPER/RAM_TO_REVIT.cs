@@ -2403,7 +2403,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("StoryID", "CId", "Column ID", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("StoryID", "SId", "Story ID", GH_ParamAccess.item);
 
         }
 
@@ -2426,7 +2426,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
             string FileName = null;
-            int StoryID = 0;
+            int StoryID = -1;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -2439,7 +2439,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             {
                 return;
             }
-            if (StoryID == 0)
+            if (StoryID == -1)
             {
                 return;
             }
