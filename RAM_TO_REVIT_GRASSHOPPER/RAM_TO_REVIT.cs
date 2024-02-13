@@ -2146,13 +2146,13 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddPointParameter("StartPoints", "SP", "Start Points", GH_ParamAccess.list);
-            pManager.AddPointParameter("EndPoints", "EP", "End Points", GH_ParamAccess.list);
-            pManager.AddTextParameter("ColumnSizes", "CS", "Column Sizes", GH_ParamAccess.list);
-            pManager.AddIntegerParameter("ColumnNumbers", "CN", "Column Numbers", GH_ParamAccess.list);
-            pManager.AddLineParameter("ColumnLines", "CL", "Column Lines", GH_ParamAccess.list);
-            pManager.AddTextParameter("XGrids", "XG", "X Grids", GH_ParamAccess.list);
-            pManager.AddTextParameter("YGrids", "YG", "Y Grids", GH_ParamAccess.list);
+            pManager.AddPointParameter("StartPoints", "SP", "Start Points", GH_ParamAccess.item);
+            pManager.AddPointParameter("EndPoints", "EP", "End Points", GH_ParamAccess.item);
+            pManager.AddTextParameter("ColumnSizes", "CS", "Column Sizes", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("ColumnNumbers", "CN", "Column Numbers", GH_ParamAccess.item);
+            pManager.AddLineParameter("ColumnLines", "CL", "Column Lines", GH_ParamAccess.item);
+            pManager.AddTextParameter("XGrids", "XG", "X Grids", GH_ParamAccess.item);
+            pManager.AddTextParameter("YGrids", "YG", "Y Grids", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
