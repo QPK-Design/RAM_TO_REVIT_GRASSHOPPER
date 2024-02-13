@@ -530,7 +530,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("ColumnNumber", "CN", "Column Number", GH_ParamAccess.list);
+            pManager.AddNumberParameter("ColumnNumber", "CN", "Column Number", GH_ParamAccess.list);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -566,12 +566,12 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IColumns My_Columns = My_Story.GetColumns();
             int Column_Count = My_Columns.GetCount();
 
-            List<int> ListLine = new List<int>();
+            List<long> ListLine = new List<long>();
             //create loop herenthru all count
             //start..end..step
-            for (int i = 0; i < Column_Count; i = i + 1)
+            for (int i = 0; i < Column_Count; i++)
             {
-                int My_Column_ID = My_Story.GetColumns().GetAt(i).lLabel; ;
+                long My_Column_ID = My_Story.GetColumns().GetAt(i).lLabel; ;
                 ListLine.Add(My_Column_ID);
             }
             //CLOSE           
@@ -645,7 +645,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             List<string> ListLine = new List<string>();
             //create loop herenthru all count
             //start..end..step
-            for (int i = 0; i < Column_Count; i = i + 1)
+            for (int i = 0; i < Column_Count; i++)
             {
                 string My_Column_EFrameType = My_Story.GetColumns().GetAt(i).eFramingType.ToString();
                 ListLine.Add(My_Column_EFrameType);
@@ -842,7 +842,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
@@ -860,7 +860,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
             string FileName = null;
-            List<int> In_Story_Count = new List<int>();
+            int In_Story_Count = -1;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -873,29 +873,24 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             {
                 return;
             }
-            if (In_Story_Count.Count == 0) 
+            if (In_Story_Count == -1) 
             {
                 return;
             }
-            List<List<int>> ListLine = new List<List<int>>();
-            foreach (int story in In_Story_Count) {
-                List<int> BeamsInStory = new List<int>();
-                IDBI.LoadDataBase2(FileName, "1");
-                IStories My_stories = IModel.GetStories();
-                int My_story_count = My_stories.GetCount();
-                IStory My_Story = My_stories.GetAt(story);
-                IBeams My_Beams = My_Story.GetBeams();
-                int Beam_Count = My_Beams.GetCount();
-                //create loop herenthru all count
-                //start..end..step
-                for (int i = 0; i < Beam_Count; i = i + 1)
-                {
-                    int My_Beam_ID = My_Story.GetBeams().GetAt(i).lUID;
-                    BeamsInStory.Add(My_Beam_ID);
-                }
-
-                ListLine.Add(BeamsInStory);
-
+            List<int> ListLine = new List<int>();
+            List<int> BeamsInStory = new List<int>();
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            int My_story_count = My_stories.GetCount();
+            IStory My_Story = My_stories.GetAt(In_Story_Count);
+            IBeams My_Beams = My_Story.GetBeams();
+            int Beam_Count = My_Beams.GetCount();
+            //create loop herenthru all count
+            //start..end..step
+            for (int i = 0; i < Beam_Count; i = i + 1)
+            {
+                int My_Beam_ID = My_Story.GetBeams().GetAt(i).lUID;
+                ListLine.Add(My_Beam_ID);
             }
             //CLOSE           
             IDBI.CloseDatabase();
@@ -2180,7 +2175,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             LoadRSS(FileName, IDB);
 
-            Dictionary<string, object> ReturnValues = new Dictionary<string, object>();
+            //Dictionary<string, object> ReturnValues = new Dictionary<string, object>();
 
             List<Rhino.Geometry.Point3d> StartPoints = new List<Rhino.Geometry.Point3d>();
             List<Rhino.Geometry.Point3d> EndPoints = new List<Rhino.Geometry.Point3d>();
@@ -2194,7 +2189,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             {
                 int NumfloorTypes = 0;
 
-                //IModel.GetFloorTypes().GetAt(1);
+                IModel.GetFloorTypes().GetAt(1);
 
                 IModelGeo.GetNumStories(ref NumfloorTypes);
 
