@@ -329,7 +329,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             List<Rhino.Geometry.Line> ListLine = new List<Rhino.Geometry.Line>();
             //create loop herenthru all count
             //start..end..step
-            for (int i = 0; i < Column_Count; i = i + 1)
+            for (int i = 0; i < Column_Count; i++)
             {
                 My_Story.GetColumns().GetAt(i).GetEndCoordinates(ref P1, ref P2);
                 double P1x = P1.dXLoc;
@@ -417,7 +417,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             List<string> ListLine = new List<string>();
             //create loop herenthru all count
             //start..end..step
-            for (int i = 0; i < Column_Count; i = i + 1)
+            for (int i = 0; i < Column_Count; i++)
             {
                 string My_Column_Size = My_Story.GetColumns().GetAt(i).strSectionLabel;
                 ListLine.Add(My_Column_Size);
@@ -493,7 +493,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             List<int> ListLine = new List<int>();
             //create loop herenthru all count
             //start..end..step
-            for (int i = 0; i < Column_Count; i = i + 1)
+            for (int i = 0; i < Column_Count; i++)
             {
                 int My_Column_ID = My_Story.GetColumns().GetAt(i).lUID;
                 ListLine.Add(My_Column_ID);
@@ -724,7 +724,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             List<Rhino.Geometry.Line> ListLine = new List<Rhino.Geometry.Line>();
             //create loop herenthru all count
             //start..end..step
-            for (int i = 0; i < Beam_Count; i = i + 1)
+            for (int i = 0; i < Beam_Count; i++)
             {
                 My_Story.GetBeams().GetAt(i).GetCoordinates(EBeamCoordLoc.eBeamEnds, ref P1, ref P2);
 
@@ -812,7 +812,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             List<string> ListLine = new List<string>();
             //create loop herenthru all count
             //start..end..step
-            for (int i = 0; i < Beam_Count; i = i + 1)
+            for (int i = 0; i < Beam_Count; i++)
             {
                 string My_Beam_Size = My_Story.GetBeams().GetAt(i).strSectionLabel;
                 ListLine.Add(My_Beam_Size);
@@ -887,7 +887,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             int Beam_Count = My_Beams.GetCount();
             //create loop herenthru all count
             //start..end..step
-            for (int i = 0; i < Beam_Count; i = i + 1)
+            for (int i = 0; i < Beam_Count; i++)
             {
                 int My_Beam_ID = My_Story.GetBeams().GetAt(i).lUID;
                 ListLine.Add(My_Beam_ID);
@@ -961,7 +961,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             List<int> ListLine = new List<int>();
             //create loop herenthru all count
             //start..end..step
-            for (int i = 0; i < Beam_Count; i = i + 1)
+            for (int i = 0; i < Beam_Count; i++)
             {
                 int My_Beam_ID = My_Story.GetBeams().GetAt(i).lLabel;
                 ListLine.Add(My_Beam_ID);
@@ -1037,7 +1037,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             List<EFRAMETYPE> ListLine = new List<EFRAMETYPE>();
             //create loop herenthru all count
             //start..end..step
-            for (int i = 0; i < Beam_Count; i = i + 1)
+            for (int i = 0; i < Beam_Count; i++)
             {
                 EFRAMETYPE My_Beam_EFrameType = My_Story.GetBeams().GetAt(i).eFramingType;
                 ListLine.Add(My_Beam_EFrameType);
@@ -1653,7 +1653,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             List<string> Grid_Name = new List<string>();
             List<string> Grid_Axis = new List<string>();
 
-            for (int i = 0; i < My_Grid_Count; i = i + 1)
+            for (int i = 0; i < My_Grid_Count; i++)
             {
                 //round up and convert grids from inches to feet
                 double My_Grid_ORD = Math.Ceiling(My_Model_Grids.GetAt(i).dCoordinate_Angle / 12);
@@ -2049,7 +2049,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IStories My_stories = IModel.GetStories();
             int Story_Count = My_stories.GetCount();
             List<int> ListLine = new List<int>();
-            for (int i = 0; i < Story_Count; i = i + 1)
+            for (int i = 0; i < Story_Count; i++)
             {
                 int My_Story_Id = My_stories.GetAt(i).lUID;
                 ListLine.Add(My_Story_Id);
@@ -2110,7 +2110,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IStories My_stories = IModel.GetStories();
             int Story_Count = My_stories.GetCount();
             List<string> ListLine = new List<string>();
-            for (int i = 0; i < Story_Count; i = i + 1)
+            for (int i = 0; i < Story_Count; i++)
             {
                 string My_Story_Names = My_stories.GetAt(i).strLabel;
                 ListLine.Add(My_Story_Names);
@@ -2369,7 +2369,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IStories My_stories = IModel.GetStories();
             int Story_Count = My_stories.GetCount();
 
-            for (int i = 0; i < Story_Count; i = i + 1)
+            for (int i = 0; i < Story_Count; i++)
             {
                 IStory MatchedStory = My_stories.GetAt(i);
 
@@ -2459,7 +2459,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IBeams My_Beams = My_Story_BY_id.GetBeams();
             int Beam_Count = My_Beams.GetCount();
 
-            for (int i = 0; i < Beam_Count; i = i + 1)
+            for (int i = 0; i < Beam_Count; i++)
             {
                 IBeam My_Beam = My_Story_BY_id.GetBeams().GetAt(i);
 
