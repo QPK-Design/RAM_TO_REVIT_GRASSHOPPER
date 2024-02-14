@@ -140,7 +140,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
-
     public class SET_FLOOR_TYPE : GH_Component
     {
 
@@ -263,7 +262,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
-
     public class GET_RAM_COL_CL : GH_Component
     {
 
@@ -352,7 +350,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
-
     public class GET_RAM_COL_SIZE : GH_Component
     {
 
@@ -427,7 +424,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             DA.SetDataList("ColumnSize", ListLine);
         }
     }
-
 
     public class GET_RAM_COL_ID : GH_Component
     {
@@ -504,7 +500,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
-
     public class GET_RAM_COL_Number : GH_Component
     {
 
@@ -580,7 +575,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
-
     public class GET_RAM_COL_IS_GRAV_OR_LATERAL : GH_Component
     {
 
@@ -655,9 +649,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             DA.SetDataList("GravOrLateral", ListLine);
         }
     }
-
-
-
 
     public class GET_RAM_BM_CL : GH_Component
     {
@@ -747,7 +738,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             DA.SetDataList("BeamCoordinateList", ListLine);
         }
     }
-
 
     public class GET_RAM_BM_SIZE : GH_Component
     {
@@ -1047,6 +1037,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             DA.SetDataList("GravOrLateral", ListLine);
         }
     }
+
     public class CREATE_RAM_STEEL_COL : GH_Component
     {
 
@@ -1248,7 +1239,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
-
     public class CREATE_RAM_STEEL_BRACE : GH_Component
     {
 
@@ -1358,7 +1348,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             DA.SetData("BraceID", My_New_Brace_ID);
         }
     }
-
 
     public class CREATE_RAM_STEEL_HORZ_BRACE : GH_Component
     {
@@ -1674,7 +1663,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
-
     public class CREATE_GRIDS : GH_Component
     {
 
@@ -1771,7 +1759,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
-
     public class GET_NUM_LOAD_CASES : GH_Component
     {
 
@@ -1834,7 +1821,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             DA.SetData("NumLoadCases", plNumAnalysisCases);
         }
     }
-
 
     public class GET_GRV_COL_FORCES : GH_Component
     {
@@ -1929,7 +1915,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
-
     public class CREATE_FLOOR_TYPE : GH_Component
     {
 
@@ -1999,7 +1984,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
-
     public class GET_STORY_IDS : GH_Component
     {
 
@@ -2060,7 +2044,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         }
     }
 
-
     public class GET_STORY_NAMES : GH_Component
     {
 
@@ -2120,7 +2103,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             IDBI.CloseDatabase();
         }
     }
-
 
     public class GET_GRIDS_AT_COL : GH_Component
     {
