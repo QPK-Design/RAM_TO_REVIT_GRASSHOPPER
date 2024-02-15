@@ -1841,7 +1841,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("ColumnID", "CId", "Column ID", GH_ParamAccess.list);
+            pManager.AddIntegerParameter("ColumnID", "CId", "Column ID", GH_ParamAccess.item);
 
         }
 
@@ -2128,13 +2128,13 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddPointParameter("StartPoints", "SP", "Start Points", GH_ParamAccess.list);
-            pManager.AddPointParameter("EndPoints", "EP", "End Points", GH_ParamAccess.list);
-            pManager.AddTextParameter("ColumnSizes", "CS", "Column Sizes", GH_ParamAccess.list);
-            pManager.AddIntegerParameter("ColumnNumbers", "CN", "Column Numbers", GH_ParamAccess.list);
-            pManager.AddLineParameter("ColumnLines", "CL", "Column Lines", GH_ParamAccess.list);
-            pManager.AddTextParameter("XGrids", "XG", "X Grids", GH_ParamAccess.list);
-            pManager.AddTextParameter("YGrids", "YG", "Y Grids", GH_ParamAccess.list);
+            pManager.AddPointParameter("StartPoints", "SP", "Start Points", GH_ParamAccess.item);
+            pManager.AddPointParameter("EndPoints", "EP", "End Points", GH_ParamAccess.item);
+            pManager.AddTextParameter("ColumnSizes", "CS", "Column Sizes", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("ColumnNumbers", "CN", "Column Numbers", GH_ParamAccess.item);
+            pManager.AddLineParameter("ColumnLines", "CL", "Column Lines", GH_ParamAccess.item);
+            pManager.AddTextParameter("XGrids", "XG", "X Grids", GH_ParamAccess.item);
+            pManager.AddTextParameter("YGrids", "YG", "Y Grids", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -2229,14 +2229,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                     }
                 }
 
-                DA.SetData("ColumnNumbers", ColNums);
-                DA.SetData("StartPoints", StartPoints);
-                DA.SetData("EndPoints", EndPoints);
-                DA.SetData("ColumnLines", AllOutLines);
-                DA.SetData("ColumnSize", ColSizes);
-                DA.SetData("XGrids", XGrids);
-                DA.SetData("YGrids", YGrids);
-
             }
             catch (Exception ex)
             {
@@ -2245,6 +2237,14 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             }
             finally
             {
+
+                DA.SetDataList("ColumnNumbers", ColNums);
+                DA.SetDataList("StartPoints", StartPoints);
+                DA.SetDataList("EndPoints", EndPoints);
+                DA.SetDataList("ColumnLines", AllOutLines);
+                DA.SetDataList("ColumnSizes", ColSizes);
+                DA.SetDataList("XGrids", XGrids);
+                DA.SetDataList("YGrids", YGrids);
                 IDB.CloseDatabase();
 
                 IModelGeo = null;
@@ -2362,7 +2362,6 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             throw new ArgumentException("Could not find a story named " + StoryName);
         }
     }
-
 
     public class GET_RAM_BM_STUD_CAMBER_MRatio : GH_Component
     {
