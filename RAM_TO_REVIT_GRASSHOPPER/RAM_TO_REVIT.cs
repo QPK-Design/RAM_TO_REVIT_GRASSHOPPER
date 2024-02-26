@@ -1841,21 +1841,31 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("ColumnID", "CId", "Column ID", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("ColumnID", "CId", "Column ID", GH_ParamAccess.list);
 
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
         {
-            pManager.AddNumberParameter("DeadLoad", "DL", "Dead Load", GH_ParamAccess.list);
-            pManager.AddNumberParameter("PosLLRed", "PLLR", "Positive Live Load Red", GH_ParamAccess.list);
-            pManager.AddNumberParameter("PosLLNonRed", "PLLNR", "Positive Live Load Non Red", GH_ParamAccess.list);
-            pManager.AddNumberParameter("PosLLStorage", "PLLS", "Positive Live Load Storage", GH_ParamAccess.list);
-            pManager.AddNumberParameter("PosLLRoof", "PLLR", "Positive Live Load Roof", GH_ParamAccess.list);
-            pManager.AddNumberParameter("NegLLRed", "NLLR", "Negative Live Load Red", GH_ParamAccess.list);
-            pManager.AddNumberParameter("NegLLNonRed", "NLLNR", "Negative Live Load Non Red", GH_ParamAccess.list);
-            pManager.AddNumberParameter("NegLLStorage", "NLLS", "Negative Live Load Storage", GH_ParamAccess.list);
-            pManager.AddNumberParameter("NegLLRoof", "NLLR", "Negative Live Load Roof", GH_ParamAccess.list);
+            pManager.AddNumberParameter("pdDL", "DL", "Dead Load", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdCDL", "CDL", "Construction Dead Load", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdCLL", "CLL", "Construction Live Load", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdLLPosRed", "LLPRed", "Positive Reducible Live Load", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdLLNegRed", "LLNRed", "Negative Live Load Red", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdLLPosNonRed", "LLPNRed", "Positive Non-Reducible Live Load", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdLLNegNonRed", "LLNNRed", "Negative Non-Reducible Live Load", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdLLPosStorage", "LLPS", "Positive Storage Live Load", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdLLNegStorage", "LLNS", "Negative Storage Live Load", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdLLPosRoof", "LLPRoof", "Positive Roof Live Load", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdLLNegRoof", "LLNRoof", "Negative Roof Live Load", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdPosPL", "PPL", "Positive Partition Load", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdNegPL", "NPL", "Negative Roof Live Load", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdPosLLRF", "PLLRF", "Positive live load reduction factor", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdNegLLRF", "NLLRF", "Negative live load reduction factor", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdPosRoofLLRF", "PRoofLLRF", "Positive Roof live load reduction factor", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdNegRoofLLRF", "NRoofLLRF", "Negative Roof live load reduction factor", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdPosStorageLLRF", "PSLLRF", "Positive Storage live load reduction factor", GH_ParamAccess.item);
+            pManager.AddNumberParameter("pdNegStorageLLRF", "NSLLRF", "Negative Storage live load reduction factor", GH_ParamAccess.item);
         }
 
         protected override void SolveInstance(IGH_DataAccess DA)
@@ -1865,11 +1875,11 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
             RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
-            RAMDATAACCESSLib.IForces1 IForces1 = (RAMDATAACCESSLib.IForces1)
-                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IForces_INT);
+            RAMDATAACCESSLib.IGravityLoads1 gravityLoads = (RAMDATAACCESSLib.IGravityLoads1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IGravityLoads_INT);
             //OPEN
             string FileName = null;
-            int ColumnID = 0;
+            List<int> ColumnID = new List<int>();
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -1882,36 +1892,60 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             {
                 return;
             }
-            if (ColumnID == 0)
+            if (ColumnID.Count() == 0)
             {
                 return;
             }
             IDBI.LoadDataBase2(FileName, "1");
-            double pdDead = 0;
-            double pdPosLLRed = 0;
-            double pdPosLLNonRed = 0;
-            double pdPosLLStorage = 0;
-            double pdPosLLRoof = 0;
-            double pdNegLLRed = 0;
-            double pdNegLLNonRed = 0;
-            double pdNegLLStorage = 0;
-            double pdNegLLRoof = 0;
-            IForces1.GetGrvColForcesForLCase(ColumnID, ref pdDead, ref pdPosLLRed,
-                ref pdPosLLNonRed, ref pdPosLLStorage, ref pdPosLLRoof, ref pdNegLLRed,
-                ref pdNegLLNonRed, ref pdNegLLStorage, ref pdNegLLRoof);
-            IFloorTypes My_floortypes = IModel.GetFloorTypes();
-            int My_floortype_count = My_floortypes.GetCount();
+            for (int i = 0; i < ColumnID.Count(); i++)
+            {
+                int lPtLoadNo = 0;
+                double pdDL = 0;
+                double pdCDL = 0;
+                double pdCLL = 0;
+                double pdLLPosRed = 0;
+                double pdLLNegRed = 0;
+                double pdLLPosNonRed = 0;
+                double pdLLNegNonRed = 0;
+                double pdLLPosStorage = 0;
+                double pdLLNegStorage = 0;
+                double pdLLPosRoof = 0;
+                double pdLLNegRoof = 0;
+                double pdPosPL = 0;
+                double pdNegPL = 0;
+                double pdPosLLRF = 0;
+                double pdNegLLRF = 0;
+                double pdPosRoofLLRF = 0;
+                double pdNegRoofLLRF = 0;
+                double pdPosStorageLLRF = 0;
+                double pdNegStorageLLRF = 0;
+                gravityLoads.GetColumnPointLoad2(ColumnID[i], lPtLoadNo, ref pdDL, ref pdCDL,
+                    ref pdCLL, ref pdLLPosRed, ref pdLLPosNonRed, ref pdLLNegRed, ref pdLLNegNonRed,
+                    ref pdLLPosStorage, ref pdLLNegStorage, ref pdLLPosRoof, ref pdLLNegRoof, ref pdPosPL,
+                    ref pdNegPL, ref pdPosLLRF, ref pdNegLLRF, ref pdPosRoofLLRF, ref pdNegRoofLLRF,
+                    ref pdPosStorageLLRF, ref pdNegStorageLLRF);
+                DA.SetData("pdDL", pdDL);
+                DA.SetData("pdCDL", pdCDL);
+                DA.SetData("pdCLL", pdCLL);
+                DA.SetData("pdLLPosRed", pdLLPosRed);
+                DA.SetData("pdLLNegRed", pdLLNegRed);
+                DA.SetData("pdLLPosNonRed", pdLLPosNonRed);
+                DA.SetData("pdLLNegNonRed", pdLLNegNonRed);
+                DA.SetData("pdLLPosStorage", pdLLPosStorage);
+                DA.SetData("pdLLNegStorage", pdLLNegStorage);
+                DA.SetData("pdLLPosRoof", pdLLPosRoof);
+                DA.SetData("pdLLNegRoof", pdLLNegRoof);
+                DA.SetData("pdPosPL", pdPosPL);
+                DA.SetData("pdNegPL", pdNegPL);
+                DA.SetData("pdPosLLRF", pdPosLLRF);
+                DA.SetData("pdNegLLRF", pdNegLLRF);
+                DA.SetData("pdPosRoofLLRF", pdPosRoofLLRF);
+                DA.SetData("pdNegRoofLLRF", pdNegRoofLLRF);
+                DA.SetData("pdPosStorageLLRF", pdPosStorageLLRF);
+                DA.SetData("pdNegStorageLLRF", pdNegStorageLLRF);
+            }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetData("pdDead", pdDead); 
-            DA.SetData("pdPosLLRed", pdPosLLRed);
-            DA.SetData("pdPosLLNonRed", pdPosLLNonRed); 
-            DA.SetData("pdPosLLStorage", pdPosLLStorage);
-            DA.SetData("pdPosLLRoof", pdPosLLRoof); 
-            DA.SetData("pdNegLLRed", pdNegLLRed);
-            DA.SetData("pdNegLLNonRed", pdNegLLNonRed); 
-            DA.SetData("pdNegLLStorage", pdNegLLStorage);
-            DA.SetData("pdNegLLRoof", pdNegLLRoof);
         }
     }
 
