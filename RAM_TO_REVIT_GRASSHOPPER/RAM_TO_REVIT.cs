@@ -868,7 +868,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 return;
             }
             List<int> ListLine = new List<int>();
-            List<int> BeamsInStory = new List<int>();
+            //List<int> BeamsInStory = new List<int>();
             IDBI.LoadDataBase2(FileName, "1");
             IStories My_stories = IModel.GetStories();
             int My_story_count = My_stories.GetCount();
