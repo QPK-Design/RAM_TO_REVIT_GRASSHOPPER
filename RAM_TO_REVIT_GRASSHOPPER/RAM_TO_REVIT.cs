@@ -16,7 +16,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_FLOOR_TYPE_COUNT : GH_Component
     {
 
-        public GET_FLOOR_TYPE_COUNT() : base("GET_FLOOR_TYPE_COUNT", "GFTC", "Get floor type count", "RAM", "Floor")
+        public GET_FLOOR_TYPE_COUNT() : base("GET_FLOOR_TYPE_COUNT", "GFTC", "Get floor type count", "RAM Structural Systems", "Floors")
         {
 
         }
@@ -72,7 +72,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_FLOOR_TYPE_IDS : GH_Component
     {
 
-        public GET_FLOOR_TYPE_IDS() : base("GET_FLOOR_TYPE_IDS", "GFTIDs", "Get the floor type Identifiers", "RAM", "Floor")
+        public GET_FLOOR_TYPE_IDS() : base("GET_FLOOR_TYPE_IDS", "GFTIDs", "Get the floor type Identifiers", "RAM Structural Systems", "Floors")
         {
 
         }
@@ -143,7 +143,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class SET_FLOOR_TYPE : GH_Component
     {
 
-        public SET_FLOOR_TYPE() : base("SET_FLOOR_TYPE", "SFT", "Set Floor Type", "RAM", "Floor")
+        public SET_FLOOR_TYPE() : base("SET_FLOOR_TYPE", "SFT", "Set Floor Type", "RAM Structural Systems", "Floors")
         {
 
         }
@@ -213,7 +213,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_STORY_COUNT : GH_Component
     {
 
-        public GET_STORY_COUNT() : base("GET_STORY_COUNT", "GSC", "Get Story Count", "RAM", "Story")
+        public GET_STORY_COUNT() : base("GET_STORY_COUNT", "GSC", "Get Story Count", "RAM Structural Systems", "Stories")
         {
 
         }
@@ -265,7 +265,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_COL_CL : GH_Component
     {
 
-        public GET_RAM_COL_CL() : base("GET_RAM_COL_CL", "GRCCL", "Get RAM Column Coordinate List", "RAM", "Column")
+        public GET_RAM_COL_CL() : base("GET_RAM_COL_CL", "GRCCL", "Get RAM Column Coordinate List", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -353,7 +353,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_COL_SIZE : GH_Component
     {
 
-        public GET_RAM_COL_SIZE() : base("GET_RAM_COL_SIZE", "GRCS", "Get RAM Column Size", "RAM", "Column")
+        public GET_RAM_COL_SIZE() : base("GET_RAM_COL_SIZE", "GRCS", "Get RAM Column Size", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -428,7 +428,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_COL_ID : GH_Component
     {
 
-        public GET_RAM_COL_ID() : base("GET_RAM_COL_ID", "GRCId", "Get RAM Column ID", "RAM", "Column")
+        public GET_RAM_COL_ID() : base("GET_RAM_COL_ID", "GRCId", "Get RAM Column ID", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -503,7 +503,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_COL_Number : GH_Component
     {
 
-        public GET_RAM_COL_Number() : base("GET_RAM_COL_Number", "GRCN", "Get RAM Column Number", "RAM", "Column")
+        public GET_RAM_COL_Number() : base("GET_RAM_COL_Number", "GRCN", "Get RAM Column Number", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -578,7 +578,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_COL_IS_GRAV_OR_LATERAL : GH_Component
     {
 
-        public GET_RAM_COL_IS_GRAV_OR_LATERAL() : base("GET_RAM_COL_IS_GRAV_OR_LATERAL", "GRCIGOL", "Get RAM Column is Grav or Lateral", "RAM", "Column")
+        public GET_RAM_COL_IS_GRAV_OR_LATERAL() : base("GET_RAM_COL_IS_GRAV_OR_LATERAL", "GRCIGOL", "Get RAM Column is Gravity or Lateral", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -653,7 +653,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_BM_CL : GH_Component
     {
 
-        public GET_RAM_BM_CL() : base("GET_RAM_BM_CL", "GRBCL", "Get RAM Beam ", "RAM", "Beam")
+        public GET_RAM_BM_CL() : base("GET_RAM_BM_CL", "GRBCL", "Get RAM Beam ", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -742,7 +742,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_BM_SIZE : GH_Component
     {
 
-        public GET_RAM_BM_SIZE() : base("GET_RAM_BM_SIZE", "GRBS", "Get RAM Beam Size", "RAM", "Beam")
+        public GET_RAM_BM_SIZE() : base("GET_RAM_BM_SIZE", "GRBS", "Get RAM Beam Size", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -816,7 +816,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_BM_id : GH_Component
     {
 
-        public GET_RAM_BM_id() : base("GET_RAM_BM_id", "GRBId", "Get RAM Beam ID", "RAM", "Beam")
+        public GET_RAM_BM_id() : base("GET_RAM_BM_id", "GRBId", "Get RAM Beam ID", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -891,7 +891,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_BM_Number : GH_Component
     {
 
-        public GET_RAM_BM_Number() : base("GET_RAM_BM_Number", "GRBNo", "Get RAM Beam Number", "RAM", "Beam")
+        public GET_RAM_BM_Number() : base("GET_RAM_BM_Number", "GRBNo", "Get RAM Beam Number", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -965,7 +965,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_BM_GRAV_OR_LATERAL : GH_Component
     {
 
-        public GET_RAM_BM_GRAV_OR_LATERAL() : base("GET_RAM_BM_GRAV_OR_LATERAL", "GRBGOL", "Get RAM Beam Grav or Lateral", "RAM", "Beam")
+        public GET_RAM_BM_GRAV_OR_LATERAL() : base("GET_RAM_BM_GRAV_OR_LATERAL", "GRBGOL", "Get RAM Beam Grav or Lateral", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -1041,7 +1041,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_RAM_STEEL_COL : GH_Component
     {
 
-        public CREATE_RAM_STEEL_COL() : base("CREATE_RAM_STEEL_COL", "CRSC", "Create RAM Steel Column", "RAM", "Column")
+        public CREATE_RAM_STEEL_COL() : base("CREATE_RAM_STEEL_COL", "CRSC", "Create RAM Steel Column", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -1135,7 +1135,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_RAM_STEEL_BM : GH_Component
     {
 
-        public CREATE_RAM_STEEL_BM() : base("CREATE_RAM_STEEL_BM", "CRSB", "Create RAM Steel Beam", "RAM", "Beam")
+        public CREATE_RAM_STEEL_BM() : base("CREATE_RAM_STEEL_BM", "CRSB", "Create RAM Steel Beam", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -1242,7 +1242,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_RAM_STEEL_BRACE : GH_Component
     {
 
-        public CREATE_RAM_STEEL_BRACE() : base("CREATE_RAM_STEEL_BRACE", "CRSB", "Create RAM Steel Brace", "RAM", "Brace")
+        public CREATE_RAM_STEEL_BRACE() : base("CREATE_RAM_STEEL_BRACE", "CRSB", "Create RAM Steel Brace", "RAM Structural Systems", "Braces")
         {
 
         }
@@ -1352,7 +1352,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_RAM_STEEL_HORZ_BRACE : GH_Component
     {
 
-        public CREATE_RAM_STEEL_HORZ_BRACE() : base("CREATE_RAM_STEEL_HORZ_BRACE", "CRSHB", "Create RAM Steel Horizontal Brace", "RAM", "Brace")
+        public CREATE_RAM_STEEL_HORZ_BRACE() : base("CREATE_RAM_STEEL_HORZ_BRACE", "CRSHB", "Create RAM Steel Horizontal Brace", "RAM Structural Systems", "Braces")
         {
 
         }
@@ -1462,7 +1462,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_RAM_STEEL_VERT_BRACE : GH_Component
     {
 
-        public CREATE_RAM_STEEL_VERT_BRACE() : base("CREATE_RAM_STEEL_VERT_BRACE", "CRSVB", "Create RAM Steel Vertical Brace", "RAM", "Brace")
+        public CREATE_RAM_STEEL_VERT_BRACE() : base("CREATE_RAM_STEEL_VERT_BRACE", "CRSVB", "Create RAM Steel Vertical Brace", "RAM Structural Systems", "Braces")
         {
 
         }
@@ -1589,7 +1589,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_GRID_INFO : GH_Component
     {
 
-        public GET_GRID_INFO() : base("GET_GRID_INFO", "GGI", "Get Grid Info", "RAM", "Grid")
+        public GET_GRID_INFO() : base("GET_GRID_INFO", "GGI", "Get Grid Info", "RAM Structural Systems", "Grids")
         {
 
         }
@@ -1666,7 +1666,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_GRIDS : GH_Component
     {
 
-        public CREATE_GRIDS() : base("CREATE_GRIDS", "CG", "Create Grids", "RAM", "Grid")
+        public CREATE_GRIDS() : base("CREATE_GRIDS", "CG", "Create Grids", "RAM Structural Systems", "Grids")
         {
 
         }
@@ -1762,7 +1762,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_NUM_LOAD_CASES : GH_Component
     {
 
-        public GET_NUM_LOAD_CASES() : base("GET_NUM_LOAD_CASES", "GNLC", "Get Number of Load Cases", "RAM", "Load")
+        public GET_NUM_LOAD_CASES() : base("GET_NUM_LOAD_CASES", "GNLC", "Get Number of Load Cases", "RAM Structural Systems", "Loads")
         {
 
         }
@@ -1825,7 +1825,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_GRV_COL_FORCES : GH_Component
     {
 
-        public GET_GRV_COL_FORCES() : base("GET_GRV_COL_FORCES", "GGCF", "Get Gravity Colum Forces", "RAM", "Column")
+        public GET_GRV_COL_FORCES() : base("GET_GRV_COL_FORCES", "GGCF", "Get Gravity Colum Forces", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -1918,7 +1918,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_FLOOR_TYPE : GH_Component
     {
 
-        public CREATE_FLOOR_TYPE() : base("CREATE_FLOOR_TYPE", "CFT", "Create Floor Type", "RAM", "Floor")
+        public CREATE_FLOOR_TYPE() : base("CREATE_FLOOR_TYPE", "CFT", "Create Floor Type", "RAM Structural Systems", "Floors")
         {
 
         }
@@ -1987,7 +1987,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_STORY_IDS : GH_Component
     {
 
-        public GET_STORY_IDS() : base("GET_STORY_IDS", "GSIds", "Get Story IDs", "RAM", "Story")
+        public GET_STORY_IDS() : base("GET_STORY_IDS", "GSIds", "Get Story IDs", "RAM Structural Systems", "Stories")
         {
 
         }
@@ -2047,7 +2047,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_STORY_NAMES : GH_Component
     {
 
-        public GET_STORY_NAMES() : base("GET_STORY_NAMES", "GSN", "Get Story Names", "RAM", "Story")
+        public GET_STORY_NAMES() : base("GET_STORY_NAMES", "GSN", "Get Story Names", "RAM Structural Systems", "Stories")
         {
 
         }
@@ -2107,7 +2107,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_GRIDS_AT_COL : GH_Component
     {
 
-        public GET_GRIDS_AT_COL() : base("GET_GRIDS_AT_COL", "GGatC", "Get Grids at Column", "RAM", "Grid")
+        public GET_GRIDS_AT_COL() : base("GET_GRIDS_AT_COL", "GGatC", "Get Grids at Column", "RAM Structural Systems", "Grids")
         {
 
         }
@@ -2366,7 +2366,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_BM_STUD_CAMBER_MRatio : GH_Component
     {
 
-        public GET_RAM_BM_STUD_CAMBER_MRatio() : base("GET_RAM_BM_STUD_CAMBER_MRatio", "GRBSCMR", "Get RAM Beam Stud Camber MRatio", "RAM", "Beam")
+        public GET_RAM_BM_STUD_CAMBER_MRatio() : base("GET_RAM_BM_STUD_CAMBER_MRatio", "GRBSCMR", "Get RAM Beam Stud Camber MRatio", "RAM Structural Systems", "Beams")
         {
 
         }
