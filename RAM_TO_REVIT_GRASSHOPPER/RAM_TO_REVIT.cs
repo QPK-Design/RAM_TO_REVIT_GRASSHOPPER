@@ -284,7 +284,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            //pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
@@ -302,7 +302,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
             string FileName = null;
-            int In_Story_Count = 0;
+            //int In_Story_Count = 0;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -311,45 +311,49 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             {
                 return;
             }
-            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
-            {
-                return;
-            }
-            if (In_Story_Count == 0)
-            {
-                return;
-            }
+            /* if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+                {
+                    return;
+                }
+                if (In_Story_Count == 0)
+                {
+                    return;
+                }
+            */
+            List<Rhino.Geometry.Line> ColumnCoordinateLists = new List<Rhino.Geometry.Line>();
             IDBI.LoadDataBase2(FileName, "1");
             IStories My_stories = IModel.GetStories();
             int My_story_count = My_stories.GetCount();
-            IStory My_Story = My_stories.GetAt(In_Story_Count);
-            IColumns My_Columns = My_Story.GetColumns();
-            int Column_Count = My_Columns.GetCount();
-            SCoordinate P1 = new SCoordinate();
-            SCoordinate P2 = new SCoordinate();
-            List<Rhino.Geometry.Line> ListLine = new List<Rhino.Geometry.Line>();
-            //create loop herenthru all count
-            //start..end..step
-            for (int i = 0; i < Column_Count; i++)
+            for (int currentStory = 0; currentStory < My_story_count; currentStory++)
             {
-                My_Story.GetColumns().GetAt(i).GetEndCoordinates(ref P1, ref P2);
-                double P1x = P1.dXLoc;
-                double P1y = P1.dYLoc;
-                double P1z = P1.dZLoc;
-                double P2x = P2.dXLoc;
-                double P2y = P2.dYLoc;
-                double P2z = P2.dZLoc;
-                Rhino.Geometry.Point3d PD1 =
-                        new Rhino.Geometry.Point3d(P1x, P1y, P1z);
-                Rhino.Geometry.Point3d PD2 =
-                        new Rhino.Geometry.Point3d(P2x, P2y, P2z);
-                Rhino.Geometry.Line Dline =
-                    new Rhino.Geometry.Line(PD1, PD2);
-                ListLine.Add(Dline);
+                IStory My_Story = My_stories.GetAt(currentStory);
+                IColumns My_Columns = My_Story.GetColumns();
+                int Column_Count = My_Columns.GetCount();
+                SCoordinate P1 = new SCoordinate();
+                SCoordinate P2 = new SCoordinate();
+                //create loop herenthru all count
+                //start..end..step
+                for (int i = 0; i < Column_Count; i++)
+                {
+                    My_Story.GetColumns().GetAt(i).GetEndCoordinates(ref P1, ref P2);
+                    double P1x = P1.dXLoc;
+                    double P1y = P1.dYLoc;
+                    double P1z = P1.dZLoc;
+                    double P2x = P2.dXLoc;
+                    double P2y = P2.dYLoc;
+                    double P2z = P2.dZLoc;
+                    Rhino.Geometry.Point3d PD1 =
+                            new Rhino.Geometry.Point3d(P1x, P1y, P1z);
+                    Rhino.Geometry.Point3d PD2 =
+                            new Rhino.Geometry.Point3d(P2x, P2y, P2z);
+                    Rhino.Geometry.Line Dline =
+                        new Rhino.Geometry.Line(PD1, PD2);
+                    ColumnCoordinateLists.Add(Dline);
+                }
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetDataList("ColumnCoordinateList", ListLine);
+            DA.SetDataList("ColumnCoordinateList", ColumnCoordinateLists);
         }
     }
 
@@ -372,7 +376,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            //pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
@@ -390,7 +394,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
             string FileName = null;
-            int In_Story_Count = 0;
+            //int In_Story_Count = 0;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -399,32 +403,35 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             {
                 return;
             }
-            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+            /*if (!DA.GetData("In_Story_Count", ref In_Story_Count))
             {
                 return;
             }
             if (In_Story_Count == 0)
             {
                 return;
-            }
+            } */
+            List<string> ColumnSizes = new List<string>();
             IDBI.LoadDataBase2(FileName, "1");
             IStories My_stories = IModel.GetStories();
             int My_story_count = My_stories.GetCount();
-            IStory My_Story = My_stories.GetAt(In_Story_Count);
-            IColumns My_Columns = My_Story.GetColumns();
-            int Column_Count = My_Columns.GetCount();
-
-            List<string> ListLine = new List<string>();
-            //create loop herenthru all count
-            //start..end..step
-            for (int i = 0; i < Column_Count; i++)
+            for (int currentStory = 0; currentStory < My_story_count; currentStory++)
             {
-                string My_Column_Size = My_Story.GetColumns().GetAt(i).strSectionLabel;
-                ListLine.Add(My_Column_Size);
+                IStory My_Story = My_stories.GetAt(currentStory);
+                IColumns My_Columns = My_Story.GetColumns();
+                int Column_Count = My_Columns.GetCount();
+
+                //create loop herenthru all count
+                //start..end..step
+                for (int i = 0; i < Column_Count; i++)
+                {
+                    string My_Column_Size = My_Story.GetColumns().GetAt(i).strSectionLabel;
+                    ColumnSizes.Add(My_Column_Size);
+                }
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetDataList("ColumnSize", ListLine);
+            DA.SetDataList("ColumnSize", ColumnSizes);
         }
     }
 
@@ -447,7 +454,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            //pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
@@ -465,7 +472,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
             string FileName = null;
-            int In_Story_Count = 0;
+            //int In_Story_Count = 0;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -474,32 +481,35 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             {
                 return;
             }
-            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+            /*if (!DA.GetData("In_Story_Count", ref In_Story_Count))
             {
                 return;
             }
             if (In_Story_Count == 0)
             {
                 return;
-            }
+            }*/
+            List<int> ColumnIDs= new List<int>();
             IDBI.LoadDataBase2(FileName, "1");
             IStories My_stories = IModel.GetStories();
             int My_story_count = My_stories.GetCount();
-            IStory My_Story = My_stories.GetAt(In_Story_Count);
-            IColumns My_Columns = My_Story.GetColumns();
-            int Column_Count = My_Columns.GetCount();
-
-            List<int> ListLine = new List<int>();
-            //create loop herenthru all count
-            //start..end..step
-            for (int i = 0; i < Column_Count; i++)
+            for (int currentStory = 0; currentStory < My_story_count; currentStory++)
             {
-                int My_Column_ID = My_Story.GetColumns().GetAt(i).lUID;
-                ListLine.Add(My_Column_ID);
+                IStory My_Story = My_stories.GetAt(currentStory);
+                IColumns My_Columns = My_Story.GetColumns();
+                int Column_Count = My_Columns.GetCount();
+
+                //create loop herenthru all count
+                //start..end..step
+                for (int i = 0; i < Column_Count; i++)
+                {
+                    int My_Column_ID = My_Story.GetColumns().GetAt(i).lUID;
+                    ColumnIDs.Add(My_Column_ID);
+                }
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetDataList("ColumnID", ListLine);
+            DA.SetDataList("ColumnID", ColumnIDs);
         }
     }
 
@@ -522,7 +532,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            //pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
@@ -540,7 +550,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
             string FileName = null;
-            int In_Story_Count = 0;
+            //int In_Story_Count = 0;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -549,32 +559,35 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             {
                 return;
             }
-            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+            /*if (!DA.GetData("In_Story_Count", ref In_Story_Count))
             {
                 return;
             }
             if (In_Story_Count == 0)
             {
                 return;
-            }
+            }*/
+            List<long> ColumnNumbers = new List<long>();
             IDBI.LoadDataBase2(FileName, "1");
             IStories My_stories = IModel.GetStories();
             int My_story_count = My_stories.GetCount();
-            IStory My_Story = My_stories.GetAt(In_Story_Count);
-            IColumns My_Columns = My_Story.GetColumns();
-            int Column_Count = My_Columns.GetCount();
-
-            List<long> ListLine = new List<long>();
-            //create loop herenthru all count
-            //start..end..step
-            for (int i = 0; i < Column_Count; i++)
+            for (int currentStory = 0; currentStory < My_story_count; currentStory++)
             {
-                long My_Column_ID = My_Story.GetColumns().GetAt(i).lLabel; ;
-                ListLine.Add(My_Column_ID);
+                IStory My_Story = My_stories.GetAt(currentStory);
+                IColumns My_Columns = My_Story.GetColumns();
+                int Column_Count = My_Columns.GetCount();
+
+                //create loop herenthru all count
+                //start..end..step
+                for (int i = 0; i < Column_Count; i++)
+                {
+                    long My_Column_ID = My_Story.GetColumns().GetAt(i).lLabel; ;
+                    ColumnNumbers.Add(My_Column_ID);
+                }
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetDataList("ColumnNumber", ListLine);
+            DA.SetDataList("ColumnNumber", ColumnNumbers);
         }
     }
 
@@ -597,7 +610,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            //pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
@@ -615,7 +628,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
             string FileName = null;
-            int In_Story_Count = 0;
+            //int In_Story_Count = 0;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -624,32 +637,35 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             {
                 return;
             }
-            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
+            /*if (!DA.GetData("In_Story_Count", ref In_Story_Count))
             {
                 return;
             }
             if (In_Story_Count == 0)
             {
                 return;
-            }
+            }*/
+            List<string> ColumnGravOrLateral = new List<string>();
             IDBI.LoadDataBase2(FileName, "1");
             IStories My_stories = IModel.GetStories();
             int My_story_count = My_stories.GetCount();
-            IStory My_Story = My_stories.GetAt(In_Story_Count);
-            IColumns My_Columns = My_Story.GetColumns();
-            int Column_Count = My_Columns.GetCount();
-
-            List<string> ListLine = new List<string>();
-            //create loop herenthru all count
-            //start..end..step
-            for (int i = 0; i < Column_Count; i++)
+            for (int currentStory = 0; currentStory < My_story_count; currentStory++)
             {
-                string My_Column_EFrameType = My_Story.GetColumns().GetAt(i).eFramingType.ToString();
-                ListLine.Add(My_Column_EFrameType);
+                IStory My_Story = My_stories.GetAt(currentStory);
+                IColumns My_Columns = My_Story.GetColumns();
+                int Column_Count = My_Columns.GetCount();
+
+                //create loop herenthru all count
+                //start..end..step
+                for (int i = 0; i < Column_Count; i++)
+                {
+                    string My_Column_EFrameType = My_Story.GetColumns().GetAt(i).eFramingType.ToString();
+                    ColumnGravOrLateral.Add(My_Column_EFrameType);
+                }
             }
             //CLOSE           
             IDBI.CloseDatabase();
-            DA.SetDataList("GravOrLateral", ListLine);
+            DA.SetDataList("GravOrLateral", ColumnGravOrLateral);
         }
     }
 
@@ -1823,7 +1839,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_GRV_COL_FORCES_BENTLEY : GH_Component
     {
 
-        public GET_GRV_COL_FORCES_BENTLEY() : base("GET_GRV_COL_FORCES", "GGCF", "Get Gravity Colum Forces", "RAM Structural Systems", "Columns")
+        public GET_GRV_COL_FORCES_BENTLEY() : base("GET_GRV_COL_FORCES_BENTLEY", "GGCFB", "Get Gravity Column Forces (Bentley Implementation)", "RAM Structural Systems", "Columns")
         {
 
         }
