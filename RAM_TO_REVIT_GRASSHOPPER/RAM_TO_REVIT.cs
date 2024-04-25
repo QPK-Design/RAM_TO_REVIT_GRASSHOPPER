@@ -19,7 +19,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_FLOOR_TYPE_COUNT : GH_Component
     {
 
-        public GET_FLOOR_TYPE_COUNT() : base("GET_FLOOR_TYPE_COUNT", "GFTC", "Get floor type count", "RAM", "Floor")
+        public GET_FLOOR_TYPE_COUNT() : base("GET_FLOOR_TYPE_COUNT", "GFTC", "Get floor type count", "RAM Structural Systems", "Floors")
         {
 
         }
@@ -75,7 +75,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_FLOOR_TYPE_IDS : GH_Component
     {
 
-        public GET_FLOOR_TYPE_IDS() : base("GET_FLOOR_TYPE_IDS", "GFTIDs", "Get the floor type Identifiers", "RAM", "Floor")
+        public GET_FLOOR_TYPE_IDS() : base("GET_FLOOR_TYPE_IDS", "GFTIDs", "Get the floor type Identifiers", "RAM Structural Systems", "Floors")
         {
 
         }
@@ -146,7 +146,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class SET_FLOOR_TYPE : GH_Component
     {
 
-        public SET_FLOOR_TYPE() : base("SET_FLOOR_TYPE", "SFT", "Set Floor Type", "RAM", "Floor")
+        public SET_FLOOR_TYPE() : base("SET_FLOOR_TYPE", "SFT", "Set Floor Type", "RAM Structural Systems", "Floors")
         {
 
         }
@@ -216,7 +216,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_STORY_COUNT : GH_Component
     {
 
-        public GET_STORY_COUNT() : base("GET_STORY_COUNT", "GSC", "Get Story Count", "RAM", "Story")
+        public GET_STORY_COUNT() : base("GET_STORY_COUNT", "GSC", "Get Story Count", "RAM Structural Systems", "Stories")
         {
 
         }
@@ -268,7 +268,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_COL_CL : GH_Component
     {
 
-        public GET_RAM_COL_CL() : base("GET_RAM_COL_CL", "GRCCL", "Get RAM Column Coordinate List", "RAM", "Column")
+        public GET_RAM_COL_CL() : base("GET_RAM_COL_CL", "GRCCL", "Get RAM Column Coordinate List", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -356,7 +356,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_COL_SIZE : GH_Component
     {
 
-        public GET_RAM_COL_SIZE() : base("GET_RAM_COL_SIZE", "GRCS", "Get RAM Column Size", "RAM", "Column")
+        public GET_RAM_COL_SIZE() : base("GET_RAM_COL_SIZE", "GRCS", "Get RAM Column Size", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -431,7 +431,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_COL_ID : GH_Component
     {
 
-        public GET_RAM_COL_ID() : base("GET_RAM_COL_ID", "GRCId", "Get RAM Column ID", "RAM", "Column")
+        public GET_RAM_COL_ID() : base("GET_RAM_COL_ID", "GRCId", "Get RAM Column ID", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -506,7 +506,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_COL_Number : GH_Component
     {
 
-        public GET_RAM_COL_Number() : base("GET_RAM_COL_Number", "GRCN", "Get RAM Column Number", "RAM", "Column")
+        public GET_RAM_COL_Number() : base("GET_RAM_COL_Number", "GRCN", "Get RAM Column Number", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -581,7 +581,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_COL_IS_GRAV_OR_LATERAL : GH_Component
     {
 
-        public GET_RAM_COL_IS_GRAV_OR_LATERAL() : base("GET_RAM_COL_IS_GRAV_OR_LATERAL", "GRCIGOL", "Get RAM Column is Grav or Lateral", "RAM", "Column")
+        public GET_RAM_COL_IS_GRAV_OR_LATERAL() : base("GET_RAM_COL_IS_GRAV_OR_LATERAL", "GRCIGOL", "Get RAM Column is Gravity or Lateral", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -656,7 +656,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_BM_CL : GH_Component
     {
 
-        public GET_RAM_BM_CL() : base("GET_RAM_BM_CL", "GRBCL", "Get RAM Beam ", "RAM", "Beam")
+        public GET_RAM_BM_CL() : base("GET_RAM_BM_CL", "GRBCL", "Get RAM Beam ", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -745,7 +745,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_BM_SIZE : GH_Component
     {
 
-        public GET_RAM_BM_SIZE() : base("GET_RAM_BM_SIZE", "GRBS", "Get RAM Beam Size", "RAM", "Beam")
+        public GET_RAM_BM_SIZE() : base("GET_RAM_BM_SIZE", "GRBS", "Get RAM Beam Size", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -761,7 +761,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
+            //pManager.AddIntegerParameter("In_Story_Count", "ISC", "In Story Count", GH_ParamAccess.item);
 
         }
 
@@ -779,7 +779,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
             string FileName = null;
-            int In_Story_Count = 0;
+            //List<int> In_Story_Count = 0;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -788,27 +788,23 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             {
                 return;
             }
-            if (!DA.GetData("In_Story_Count", ref In_Story_Count))
-            {
-                return;
-            }
-            if (In_Story_Count == 0)
-            {
-                return;
-            }
             IDBI.LoadDataBase2(FileName, "1");
             IStories My_stories = IModel.GetStories();
-            int My_story_count = My_stories.GetCount();
-            IStory My_Story = My_stories.GetAt(In_Story_Count);
-            IBeams My_Beams = My_Story.GetBeams();
-            int Beam_Count = My_Beams.GetCount();
             List<string> ListLine = new List<string>();
             //create loop herenthru all count
             //start..end..step
-            for (int i = 0; i < Beam_Count; i++)
+            for (int currentStory = 0; currentStory < My_stories.GetCount(); currentStory++)
             {
-                string My_Beam_Size = My_Story.GetBeams().GetAt(i).strSectionLabel;
-                ListLine.Add(My_Beam_Size);
+
+                IStory My_Story = My_stories.GetAt(currentStory);
+                IBeams My_Beams = My_Story.GetBeams();
+                int Beam_Count = My_Beams.GetCount();
+
+                for (int i = 0; i < Beam_Count; i++)
+                {
+                    string My_Beam_Size = My_Story.GetBeams().GetAt(i).strSectionLabel;
+                    ListLine.Add(My_Beam_Size);
+                }
             }
             //CLOSE           
             IDBI.CloseDatabase();
@@ -819,7 +815,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_BM_id : GH_Component
     {
 
-        public GET_RAM_BM_id() : base("GET_RAM_BM_id", "GRBId", "Get RAM Beam ID", "RAM", "Beam")
+        public GET_RAM_BM_id() : base("GET_RAM_BM_id", "GRBId", "Get RAM Beam ID", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -871,7 +867,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 return;
             }
             List<int> ListLine = new List<int>();
-            List<int> BeamsInStory = new List<int>();
+            //List<int> BeamsInStory = new List<int>();
             IDBI.LoadDataBase2(FileName, "1");
             IStories My_stories = IModel.GetStories();
             int My_story_count = My_stories.GetCount();
@@ -894,7 +890,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_BM_Number : GH_Component
     {
 
-        public GET_RAM_BM_Number() : base("GET_RAM_BM_Number", "GRBNo", "Get RAM Beam Number", "RAM", "Beam")
+        public GET_RAM_BM_Number() : base("GET_RAM_BM_Number", "GRBNo", "Get RAM Beam Number", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -968,7 +964,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_BM_GRAV_OR_LATERAL : GH_Component
     {
 
-        public GET_RAM_BM_GRAV_OR_LATERAL() : base("GET_RAM_BM_GRAV_OR_LATERAL", "GRBGOL", "Get RAM Beam Grav or Lateral", "RAM", "Beam")
+        public GET_RAM_BM_GRAV_OR_LATERAL() : base("GET_RAM_BM_GRAV_OR_LATERAL", "GRBGOL", "Get RAM Beam Grav or Lateral", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -1044,7 +1040,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_RAM_STEEL_COL : GH_Component
     {
 
-        public CREATE_RAM_STEEL_COL() : base("CREATE_RAM_STEEL_COL", "CRSC", "Create RAM Steel Column", "RAM", "Column")
+        public CREATE_RAM_STEEL_COL() : base("CREATE_RAM_STEEL_COL", "CRSC", "Create RAM Steel Column", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -1138,7 +1134,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_RAM_STEEL_BM : GH_Component
     {
 
-        public CREATE_RAM_STEEL_BM() : base("CREATE_RAM_STEEL_BM", "CRSB", "Create RAM Steel Beam", "RAM", "Beam")
+        public CREATE_RAM_STEEL_BM() : base("CREATE_RAM_STEEL_BM", "CRSB", "Create RAM Steel Beam", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -1245,7 +1241,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_RAM_STEEL_BRACE : GH_Component
     {
 
-        public CREATE_RAM_STEEL_BRACE() : base("CREATE_RAM_STEEL_BRACE", "CRSB", "Create RAM Steel Brace", "RAM", "Brace")
+        public CREATE_RAM_STEEL_BRACE() : base("CREATE_RAM_STEEL_BRACE", "CRSB", "Create RAM Steel Brace", "RAM Structural Systems", "Braces")
         {
 
         }
@@ -1355,7 +1351,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_RAM_STEEL_HORZ_BRACE : GH_Component
     {
 
-        public CREATE_RAM_STEEL_HORZ_BRACE() : base("CREATE_RAM_STEEL_HORZ_BRACE", "CRSHB", "Create RAM Steel Horizontal Brace", "RAM", "Brace")
+        public CREATE_RAM_STEEL_HORZ_BRACE() : base("CREATE_RAM_STEEL_HORZ_BRACE", "CRSHB", "Create RAM Steel Horizontal Brace", "RAM Structural Systems", "Braces")
         {
 
         }
@@ -1465,7 +1461,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_RAM_STEEL_VERT_BRACE : GH_Component
     {
 
-        public CREATE_RAM_STEEL_VERT_BRACE() : base("CREATE_RAM_STEEL_VERT_BRACE", "CRSVB", "Create RAM Steel Vertical Brace", "RAM", "Brace")
+        public CREATE_RAM_STEEL_VERT_BRACE() : base("CREATE_RAM_STEEL_VERT_BRACE", "CRSVB", "Create RAM Steel Vertical Brace", "RAM Structural Systems", "Braces")
         {
 
         }
@@ -1592,7 +1588,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_GRID_INFO : GH_Component
     {
 
-        public GET_GRID_INFO() : base("GET_GRID_INFO", "GGI", "Get Grid Info", "RAM", "Grid")
+        public GET_GRID_INFO() : base("GET_GRID_INFO", "GGI", "Get Grid Info", "RAM Structural Systems", "Grids")
         {
 
         }
@@ -1669,7 +1665,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_GRIDS : GH_Component
     {
 
-        public CREATE_GRIDS() : base("CREATE_GRIDS", "CG", "Create Grids", "RAM", "Grid")
+        public CREATE_GRIDS() : base("CREATE_GRIDS", "CG", "Create Grids", "RAM Structural Systems", "Grids")
         {
 
         }
@@ -1765,7 +1761,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_NUM_LOAD_CASES : GH_Component
     {
 
-        public GET_NUM_LOAD_CASES() : base("GET_NUM_LOAD_CASES", "GNLC", "Get Number of Load Cases", "RAM", "Load")
+        public GET_NUM_LOAD_CASES() : base("GET_NUM_LOAD_CASES", "GNLC", "Get Number of Load Cases", "RAM Structural Systems", "Loads")
         {
 
         }
@@ -1827,7 +1823,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_GRV_COL_FORCES_BENTLEY : GH_Component
     {
 
-        public GET_GRV_COL_FORCES_BENTLEY() : base("GET_GRV_COL_FORCES", "GGCF", "Get Gravity Colum Forces", "RAM", "Column")
+        public GET_GRV_COL_FORCES_BENTLEY() : base("GET_GRV_COL_FORCES", "GGCF", "Get Gravity Colum Forces", "RAM Structural Systems", "Columns")
         {
 
         }
@@ -2022,7 +2018,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_GRAV_BEAM_REACT : GH_Component
     {
 
-        public GET_GRAV_BEAM_REACT() : base("GET_GRAV_BEAM_REACT", "GGBR", "Get Gravity Beam React", "RAM", "BEAM")
+        public GET_GRAV_BEAM_REACT() : base("GET_GRAV_BEAM_REACT", "GGBR", "Get Gravity Beam React", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -2172,7 +2168,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class CREATE_FLOOR_TYPE : GH_Component
     {
 
-        public CREATE_FLOOR_TYPE() : base("CREATE_FLOOR_TYPE", "CFT", "Create Floor Type", "RAM", "Floor")
+        public CREATE_FLOOR_TYPE() : base("CREATE_FLOOR_TYPE", "CFT", "Create Floor Type", "RAM Structural Systems", "Floors")
         {
 
         }
@@ -2241,7 +2237,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_STORY_IDS : GH_Component
     {
 
-        public GET_STORY_IDS() : base("GET_STORY_IDS", "GSIds", "Get Story IDs", "RAM", "Story")
+        public GET_STORY_IDS() : base("GET_STORY_IDS", "GSIds", "Get Story IDs", "RAM Structural Systems", "Stories")
         {
 
         }
@@ -2301,7 +2297,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_STORY_NAMES : GH_Component
     {
 
-        public GET_STORY_NAMES() : base("GET_STORY_NAMES", "GSN", "Get Story Names", "RAM", "Story")
+        public GET_STORY_NAMES() : base("GET_STORY_NAMES", "GSN", "Get Story Names", "RAM Structural Systems", "Stories")
         {
 
         }
@@ -2361,7 +2357,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_GRIDS_AT_COL : GH_Component
     {
 
-        public GET_GRIDS_AT_COL() : base("GET_GRIDS_AT_COL", "GGatC", "Get Grids at Column", "RAM", "Grid")
+        public GET_GRIDS_AT_COL() : base("GET_GRIDS_AT_COL", "GGatC", "Get Grids at Column", "RAM Structural Systems", "Grids")
         {
 
         }
@@ -2620,7 +2616,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
     public class GET_RAM_BM_STUD_CAMBER_MRatio : GH_Component
     {
 
-        public GET_RAM_BM_STUD_CAMBER_MRatio() : base("GET_RAM_BM_STUD_CAMBER_MRatio", "GRBSCMR", "Get RAM Beam Stud Camber MRatio", "RAM", "Beam")
+        public GET_RAM_BM_STUD_CAMBER_MRatio() : base("GET_RAM_BM_STUD_CAMBER_MRatio", "GRBSCMR", "Get RAM Beam Stud Camber MRatio", "RAM Structural Systems", "Beams")
         {
 
         }
@@ -2636,7 +2632,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
         protected override void RegisterInputParams(GH_InputParamManager pManager)
         {
             pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("StoryID", "SId", "Story ID", GH_ParamAccess.item);
+            //pManager.AddIntegerParameter("StoryID", "SId", "Story ID", GH_ParamAccess.item);
 
         }
 
@@ -2659,7 +2655,7 @@ namespace RAM_TO_REVIT_GRASSHOPPER
                 RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
             //OPEN
             string FileName = null;
-            int StoryID = -1;
+            //int StoryID = -1;
             if (!DA.GetData("FileName", ref FileName))
             {
                 return;
@@ -2668,19 +2664,18 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             {
                 return;
             }
-            if (!DA.GetData("StoryID", ref StoryID))
+            /*if (!DA.GetData("StoryID", ref StoryID))
             {
                 return;
             }
             if (StoryID == -1)
             {
                 return;
-            }
+            }*/
             IDBI.LoadDataBase2(FileName, "1");
             IStories My_stories = IModel.GetStories();
             int My_story_count = My_stories.GetCount();
 
-            IStory My_Story_BY_id = My_stories.Get(StoryID);
 
             List<double> Cambers = new List<double>();
             List<int> TotalNumsOfStuds = new List<int>();
@@ -2689,43 +2684,48 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             List<int> BeamNums = new List<int>();
             List<int> BeamIDs = new List<int>();
 
-            IBeams My_Beams = My_Story_BY_id.GetBeams();
-            int Beam_Count = My_Beams.GetCount();
-
-            for (int i = 0; i < Beam_Count; i++)
+            for (int currentStory = 0; currentStory < My_stories.GetCount(); currentStory++)
             {
-                IBeam My_Beam = My_Story_BY_id.GetBeams().GetAt(i);
+                IStory My_Story_BY_id = My_stories.GetAt(currentStory);
+                IBeams My_Beams = My_Story_BY_id.GetBeams();
 
-                EFRAMETYPE My_Beam_EFrameType = My_Beam.eFramingType;
-
-                if (My_Beam_EFrameType == EFRAMETYPE.MemberIsGravity)
+                for (int currentBeam = 0; currentBeam < My_Beams.GetCount(); currentBeam++)
                 {
+                    IBeam My_Beam = My_Beams.GetAt(currentBeam);
 
+                    EFRAMETYPE My_Beam_EFrameType = My_Beam.eFramingType;
+
+                    int TotalNumberOfStuds = 0;
                     int SizeofArray = 0;
-                    object ITEM = 1;
+                    object ITEM = 0;
                     double Camber = My_Beam.dCamber;
-
-                    DAArray My_Array_of_Studs = My_Beam.GetSteelDesignResult().GetNumStudsInSegments();
-                    My_Array_of_Studs.GetSize(ref SizeofArray);
-
-                    double My_Moment_DemandCapRatio = My_Beam.GetSteelDesignResult().dDesignCapacityInteraction;
-                    double My_Deflection_DemandCapRatio = My_Beam.GetSteelDesignResult().dCriticalDeflectionInteraction;
-
-                    List<int> ListLine = new List<int>();
-                    //loop thru those studs in a segment and get them in a list then cast them from object to int to .sum it up....
-                    for (int j = 0; j < SizeofArray; j++)
+                    if (My_Beam_EFrameType == EFRAMETYPE.MemberIsGravity)
                     {
-                        My_Array_of_Studs.GetAt(j, ref ITEM);
-                        ListLine.Add((int)ITEM);
-                    }
-                    int TotalofStuds = ListLine.Sum();
 
+
+                        DAArray My_Array_of_Studs = My_Beam.GetSteelDesignResult().GetNumStudsInSegments();
+                        My_Array_of_Studs.GetSize(ref SizeofArray);
+
+                        double My_Moment_DemandCapRatio = My_Beam.GetSteelDesignResult().dDesignCapacityInteraction;
+                        double My_Deflection_DemandCapRatio = My_Beam.GetSteelDesignResult().dCriticalDeflectionInteraction;
+
+                        //loop thru those studs in a segment and get them in a list then cast them from object to int to .sum it up....
+                        for (int j = 0; j < SizeofArray; j++)
+                        {
+                            My_Array_of_Studs.GetAt(j, ref ITEM);
+                            TotalNumberOfStuds += (int)ITEM;
+                        }
+                        StrengthRatios.Add(Math.Round(My_Moment_DemandCapRatio, 2));
+                        DeflectionRatios.Add(Math.Round(My_Deflection_DemandCapRatio, 2));
+
+                    } else if (My_Beam_EFrameType == EFRAMETYPE.MemberIsLateral)
+                    {
+                        My_Beam.GetSteelDesignResult().GetNumStudsInSegments();   
+                    }
                     BeamNums.Add(My_Beam.lLabel);
                     BeamIDs.Add(My_Beam.lUID);
                     Cambers.Add(Camber);
-                    TotalNumsOfStuds.Add(TotalofStuds);
-                    StrengthRatios.Add(Math.Round(My_Moment_DemandCapRatio, 2));
-                    DeflectionRatios.Add(Math.Round(My_Deflection_DemandCapRatio, 2));
+                    TotalNumsOfStuds.Add(TotalNumberOfStuds);
                 }
             }
 
