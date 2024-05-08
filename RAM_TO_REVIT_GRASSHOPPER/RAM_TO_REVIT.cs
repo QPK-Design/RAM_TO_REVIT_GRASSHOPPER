@@ -1849,199 +1849,199 @@ namespace RAM_TO_REVIT_GRASSHOPPER
             DA.SetData("NumLoadCases", plNumAnalysisCases);
         }
     }
-    //public class GET_GRV_COL_FORCES_BENTLEY : GH_Component
-    //{
+    public class GET_GRV_COL_FORCES_BENTLEY : GH_Component
+    {
 
-    //    public GET_GRV_COL_FORCES_BENTLEY() : base("GET_GRV_COL_FORCES_BENTLEY", "GGCFB", "Get Gravity Column Forces (Bentley Implementation)", "RAM Structural Systems", "Columns")
-    //    {
+        public GET_GRV_COL_FORCES_BENTLEY() : base("GET_GRV_COL_FORCES_BENTLEY", "GGCFB", "Get Gravity Column Forces (Bentley Implementation)", "RAM Structural Systems", "Columns")
+        {
 
-    //    }
-    //    public override Guid ComponentGuid
-    //    {
-    //        get { return new Guid("C841197D-10B1-4C6C-999B-DBE66A19EB71"); }
-    //    }
-    //    public static GET_GRV_COL_FORCES_BENTLEY Instance
-    //    {
-    //        get;
-    //        private set;
-    //    }
-    //    protected override void RegisterInputParams(GH_InputParamManager pManager)
-    //    {
-    //        pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
-    //        //pManager.AddIntegerParameter("ColumnID", "CId", "Column ID", GH_ParamAccess.item);
-    //        //pManager.AddIntegerParameter("StoryID", "SId", "Story ID", GH_ParamAccess.item);
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid("C841197D-10B1-4C6C-999B-DBE66A19EB71"); }
+        }
+        public static GET_GRV_COL_FORCES_BENTLEY Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "RAM Data Path", GH_ParamAccess.item);
+            //pManager.AddIntegerParameter("ColumnID", "CId", "Column ID", GH_ParamAccess.item);
+            //pManager.AddIntegerParameter("StoryID", "SId", "Story ID", GH_ParamAccess.item);
 
-    //    }
+        }
 
-    //    protected override void RegisterOutputParams(GH_OutputParamManager pManager)
-    //    {
-    //        pManager.AddNumberParameter("DL", "DL", "Dead Load", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("LLPosRed", "LLPRed", "Positive Reducible Live Load", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("LLNegRed", "LLNRed", "Negative Live Load Red", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("LLPosNonRed", "LLPNRed", "Positive Non-Reducible Live Load", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("LLNegNonRed", "LLNNRed", "Negative Non-Reducible Live Load", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("LLPosStorage", "LLPS", "Positive Storage Live Load", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("LLNegStorage", "LLNS", "Negative Storage Live Load", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("LLPosRoof", "LLPRoof", "Positive Roof Live Load", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("LLNegRoof", "LLNRoof", "Negative Roof Live Load", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("PosLLRF", "PLLRF", "Positive live load reduction factor", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("NegLLRF", "NLLRF", "Negative live load reduction factor", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("PosRoofLLRF", "PRoofLLRF", "Positive Roof live load reduction factor", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("NegRoofLLRF", "NRoofLLRF", "Negative Roof live load reduction factor", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("PosStorageLLRF", "PSLLRF", "Positive Storage live load reduction factor", GH_ParamAccess.list);
-    //        pManager.AddNumberParameter("NegStorageLLRF", "NSLLRF", "Negative Storage live load reduction factor", GH_ParamAccess.list);
-    //    }
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddNumberParameter("DL", "DL", "Dead Load", GH_ParamAccess.list);
+            pManager.AddNumberParameter("LLPosRed", "LLPRed", "Positive Reducible Live Load", GH_ParamAccess.list);
+            pManager.AddNumberParameter("LLNegRed", "LLNRed", "Negative Live Load Red", GH_ParamAccess.list);
+            pManager.AddNumberParameter("LLPosNonRed", "LLPNRed", "Positive Non-Reducible Live Load", GH_ParamAccess.list);
+            pManager.AddNumberParameter("LLNegNonRed", "LLNNRed", "Negative Non-Reducible Live Load", GH_ParamAccess.list);
+            pManager.AddNumberParameter("LLPosStorage", "LLPS", "Positive Storage Live Load", GH_ParamAccess.list);
+            pManager.AddNumberParameter("LLNegStorage", "LLNS", "Negative Storage Live Load", GH_ParamAccess.list);
+            pManager.AddNumberParameter("LLPosRoof", "LLPRoof", "Positive Roof Live Load", GH_ParamAccess.list);
+            pManager.AddNumberParameter("LLNegRoof", "LLNRoof", "Negative Roof Live Load", GH_ParamAccess.list);
+            pManager.AddNumberParameter("PosLLRF", "PLLRF", "Positive live load reduction factor", GH_ParamAccess.list);
+            pManager.AddNumberParameter("NegLLRF", "NLLRF", "Negative live load reduction factor", GH_ParamAccess.list);
+            pManager.AddNumberParameter("PosRoofLLRF", "PRoofLLRF", "Positive Roof live load reduction factor", GH_ParamAccess.list);
+            pManager.AddNumberParameter("NegRoofLLRF", "NRoofLLRF", "Negative Roof live load reduction factor", GH_ParamAccess.list);
+            pManager.AddNumberParameter("PosStorageLLRF", "PSLLRF", "Positive Storage live load reduction factor", GH_ParamAccess.list);
+            pManager.AddNumberParameter("NegStorageLLRF", "NSLLRF", "Negative Storage live load reduction factor", GH_ParamAccess.list);
+        }
 
-    //    protected override void SolveInstance(IGH_DataAccess DA)
-    //    {
-    //        RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
-    //        RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
-    //            RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
-    //        RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
-    //            RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
-    //        RAMDATAACCESSLib.IGravityLoads1 IGravityLoads = (RAMDATAACCESSLib.IGravityLoads1)
-    //            RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IGravityLoads_INT);
-    //        RAMDATAACCESSLib.IModelGeometry1 IModelGeometry = (RAMDATAACCESSLib.IModelGeometry1)
-    //            RAMDataAccess.GetDispInterfacePointerByEnum(EINTERFACES.IModelGeometry_INT);
-    //        RAMDATAACCESSLib.IModelData2 IModelData = (RAMDATAACCESSLib.IModelData2)
-    //            RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModelData2_INT);
-    //        //OPEN
-    //        string FileName = null;
-    //        //int StoryID = 0;
-    //        if (!DA.GetData("FileName", ref FileName))
-    //        {
-    //            return;
-    //        }
-    //        if (FileName == null || FileName.Length == 0)
-    //        {
-    //            return;
-    //        }
-    //        //if (!DA.GetData("StoryID", ref StoryID))
-    //        //{
-    //        //    return;
-    //        //}
-    //        //if (StoryID <= 0)
-    //        //{
-    //        //    return;
-    //        //}
-    //        List<double> DL = new List<double>();
-    //        List<double> LLPosRed = new List<double>();
-    //        List<double> LLNegRed = new List<double>();
-    //        List<double> LLPosNonRed = new List<double>();
-    //        List<double> LLNegNonRed = new List<double>();
-    //        List<double> LLPosStorage = new List<double>();
-    //        List<double> LLNegStorage = new List<double>();
-    //        List<double> LLPosRoof = new List<double>();
-    //        List<double> LLNegRoof = new List<double>();
-    //        List<double> PosLLRF = new List<double>();
-    //        List<double> NegLLRF = new List<double>();
-    //        List<double> PosRoofLLRF = new List<double>();
-    //        List<double> NegRoofLLRF = new List<double>();
-    //        List<double> PosStorageLLRF = new List<double>();
-    //        List<double> NegStorageLLRF = new List<double>();
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            RAMDATAACCESSLib.IGravityLoads1 IGravityLoads = (RAMDATAACCESSLib.IGravityLoads1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IGravityLoads_INT);
+            RAMDATAACCESSLib.IModelGeometry1 IModelGeometry = (RAMDATAACCESSLib.IModelGeometry1)
+                RAMDataAccess.GetDispInterfacePointerByEnum(EINTERFACES.IModelGeometry_INT);
+            RAMDATAACCESSLib.IModelData2 IModelData = (RAMDATAACCESSLib.IModelData2)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModelData2_INT);
+            //OPEN
+            string FileName = null;
+            //int StoryID = 0;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            //if (!DA.GetData("StoryID", ref StoryID))
+            //{
+            //    return;
+            //}
+            //if (StoryID <= 0)
+            //{
+            //    return;
+            //}
+            List<double> DL = new List<double>();
+            List<double> LLPosRed = new List<double>();
+            List<double> LLNegRed = new List<double>();
+            List<double> LLPosNonRed = new List<double>();
+            List<double> LLNegNonRed = new List<double>();
+            List<double> LLPosStorage = new List<double>();
+            List<double> LLNegStorage = new List<double>();
+            List<double> LLPosRoof = new List<double>();
+            List<double> LLNegRoof = new List<double>();
+            List<double> PosLLRF = new List<double>();
+            List<double> NegLLRF = new List<double>();
+            List<double> PosRoofLLRF = new List<double>();
+            List<double> NegRoofLLRF = new List<double>();
+            List<double> PosStorageLLRF = new List<double>();
+            List<double> NegStorageLLRF = new List<double>();
 
-    //        int plIsLoadOnColumn = 1;
-    //        double pdDL = 0;
-    //        double pdLLPosRed = 0;
-    //        double pdLLNegRed = 0;
-    //        double pdLLPosNonRed = 0;
-    //        double pdLLNegNonRed = 0;
-    //        double pdLLPosStorage = 0;
-    //        double pdLLNegStorage = 0;
-    //        double pdLLPosRoof = 0;
-    //        double pdLLNegRoof = 0;
-    //        double pdPosLLRF = 0;
-    //        double pdNegLLRF = 0;
-    //        double pdPosRoofLLRF = 0;
-    //        double pdNegRoofLLRF = 0;
-    //        double pdPosStorageLLRF = 0;
-    //        double pdNegStorageLLRF = 0;
+            int plIsLoadOnColumn = 1;
+            double pdDL = 0;
+            double pdLLPosRed = 0;
+            double pdLLNegRed = 0;
+            double pdLLPosNonRed = 0;
+            double pdLLNegNonRed = 0;
+            double pdLLPosStorage = 0;
+            double pdLLNegStorage = 0;
+            double pdLLPosRoof = 0;
+            double pdLLNegRoof = 0;
+            double pdPosLLRF = 0;
+            double pdNegLLRF = 0;
+            double pdPosRoofLLRF = 0;
+            double pdNegRoofLLRF = 0;
+            double pdPosStorageLLRF = 0;
+            double pdNegStorageLLRF = 0;
 
-    //        try
-    //        {
+            try
+            {
 
-    //            IDBI.LoadDataBase2(FileName, "1");
-    //            //Get the number of columns on this story, used to loop through the columns below - starting at 0
-    //            int plNumStories = 0;
-    //            IModelGeometry.GetNumStories(ref plNumStories);
+                IDBI.LoadDataBase2(FileName, "1");
+                //Get the number of columns on this story, used to loop through the columns below - starting at 0
+                int plNumStories = 0;
+                IModelGeometry.GetNumStories(ref plNumStories);
 
-    //            for (int nStory = 0; nStory <= plNumStories; nStory++) {
+                for (int nStory = 0; nStory <= plNumStories; nStory++) {
 
-    //                int plNumMembers = 0;
-    //                IModelData.GetNumMembersOnStory(nStory, EUniqueMemberTypeID.eTypeColumn, EMATERIALTYPES.EAnyMaterial, EFRAMETYPE.MemberIsEither, ref plNumMembers);
-
-
-
-    //                //  IStories Stories = IModel.GetStories();
-    //                //  IStory My_Story = Stories.Get(StoryID);
-    //                //  IColumns Columns = Stories.Get(StoryID).GetColumns();
-    //                //  IForces2 IForces = (RAMDATAACCESSLib.IForces2)RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IForces_INT);
-    //                // use this to get an array of the uniqueIDs for the columns on this story - note: this is not needed to call GetStoryGravityReactOnCol()
-
-    //                //long[] palCol = new long[plNumColumns];
-
-    //                //int plRetVal = IModelData.GetMemberOnStoryIDArray(nStory, EUniqueMemberTypeID.eTypeColumn, EMATERIALTYPES.EAnyMaterial, EFRAMETYPE.MemberIsEither, plNumColumns, ref palCol);
-    //                // end use this to get an array of the uniqueIDs for the columns on this story
+                    int plNumMembers = 0;
+                    IModelData.GetNumMembersOnStory(nStory, EUniqueMemberTypeID.eTypeColumn, EMATERIALTYPES.EAnyMaterial, EFRAMETYPE.MemberIsEither, ref plNumMembers);
 
 
 
-    //                // loop through all the columns on story 'nStory' 0 -> (lNumColumns -1)
+                    //  IStories Stories = IModel.GetStories();
+                    //  IStory My_Story = Stories.Get(StoryID);
+                    //  IColumns Columns = Stories.Get(StoryID).GetColumns();
+                    //  IForces2 IForces = (RAMDATAACCESSLib.IForces2)RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IForces_INT);
+                    // use this to get an array of the uniqueIDs for the columns on this story - note: this is not needed to call GetStoryGravityReactOnCol()
 
-    //                for (int nColumn = 0; nColumn <= plNumMembers; nColumn++)
+                    //long[] palCol = new long[plNumColumns];
 
-    //                {
+                    //int plRetVal = IModelData.GetMemberOnStoryIDArray(nStory, EUniqueMemberTypeID.eTypeColumn, EMATERIALTYPES.EAnyMaterial, EFRAMETYPE.MemberIsEither, plNumColumns, ref palCol);
+                    // end use this to get an array of the uniqueIDs for the columns on this story
 
-    //                    IGravityLoads.GetStoryGravityReactOnCol(nStory, nColumn, ref plIsLoadOnColumn, ref pdDL, ref pdLLPosRed, ref pdLLNegRed,
-    //                                                                        ref pdLLPosNonRed, ref pdLLNegNonRed, ref pdLLPosStorage,
-    //                                                                        ref pdLLNegStorage, ref pdLLPosRoof, ref pdLLNegRoof,
-    //                                                                        ref pdPosLLRF, ref pdNegLLRF, ref pdPosRoofLLRF,
-    //                                                                        ref pdNegRoofLLRF, ref pdPosStorageLLRF, ref pdNegStorageLLRF);
 
-    //                    DL.Add(pdDL);
-    //                    LLPosRed.Add(pdLLPosRed);
-    //                    LLNegRed.Add(pdLLNegRed);
-    //                    LLPosNonRed.Add(pdLLPosNonRed);
-    //                    LLNegNonRed.Add(pdLLNegNonRed);
-    //                    LLPosStorage.Add(pdLLPosStorage);
-    //                    LLNegStorage.Add(pdLLNegStorage);
-    //                    LLPosRoof.Add(pdLLPosRoof);
-    //                    LLNegRoof.Add(pdLLNegRoof);
-    //                    PosLLRF.Add(pdPosLLRF);
-    //                    NegLLRF.Add(pdNegLLRF);
-    //                    PosRoofLLRF.Add(pdPosLLRF);
-    //                    NegRoofLLRF.Add(pdNegRoofLLRF);
-    //                    PosStorageLLRF.Add(pdPosStorageLLRF);
-    //                    NegStorageLLRF.Add(pdNegStorageLLRF);
-    //                }
-    //            }
-    //        }
-    //        catch (Exception e)
-    //        {
-    //            throw e;
-    //        }
-    //        finally
-    //        {
-    //            DA.SetDataList("DL", DL);
-    //            DA.SetDataList("LLPosRed", LLPosRed);
-    //            DA.SetDataList("LLNegRed", LLNegRed);
-    //            DA.SetDataList("LLPosNonRed", LLPosNonRed);
-    //            DA.SetDataList("LLNegNonRed", LLNegNonRed);
-    //            DA.SetDataList("LLPosStorage", LLPosStorage);
-    //            DA.SetDataList("LLNegStorage", LLNegStorage);
-    //            DA.SetDataList("LLPosRoof", LLPosRoof);
-    //            DA.SetDataList("LLNegRoof", LLNegRoof);
-    //            DA.SetDataList("PosLLRF", PosLLRF);
-    //            DA.SetDataList("NegLLRF", NegLLRF);
-    //            DA.SetDataList("PosRoofLLRF", PosRoofLLRF);
-    //            DA.SetDataList("NegRoofLLRF", NegRoofLLRF);
-    //            DA.SetDataList("PosStorageLLRF", PosStorageLLRF);
-    //            DA.SetDataList("NegStorageLLRF", NegStorageLLRF);
 
-    //            //CLOSE           
-    //            IDBI.CloseDatabase();
-    //        }
-    //    }
-    //}
+                    // loop through all the columns on story 'nStory' 0 -> (lNumColumns -1)
+
+                    for (int nColumn = 0; nColumn <= plNumMembers; nColumn++)
+
+                    {
+
+                        IGravityLoads.GetStoryGravityReactOnCol(nStory, nColumn, ref plIsLoadOnColumn, ref pdDL, ref pdLLPosRed, ref pdLLNegRed,
+                                                                            ref pdLLPosNonRed, ref pdLLNegNonRed, ref pdLLPosStorage,
+                                                                            ref pdLLNegStorage, ref pdLLPosRoof, ref pdLLNegRoof,
+                                                                            ref pdPosLLRF, ref pdNegLLRF, ref pdPosRoofLLRF,
+                                                                            ref pdNegRoofLLRF, ref pdPosStorageLLRF, ref pdNegStorageLLRF);
+
+                        DL.Add(pdDL);
+                        LLPosRed.Add(pdLLPosRed);
+                        LLNegRed.Add(pdLLNegRed);
+                        LLPosNonRed.Add(pdLLPosNonRed);
+                        LLNegNonRed.Add(pdLLNegNonRed);
+                        LLPosStorage.Add(pdLLPosStorage);
+                        LLNegStorage.Add(pdLLNegStorage);
+                        LLPosRoof.Add(pdLLPosRoof);
+                        LLNegRoof.Add(pdLLNegRoof);
+                        PosLLRF.Add(pdPosLLRF);
+                        NegLLRF.Add(pdNegLLRF);
+                        PosRoofLLRF.Add(pdPosLLRF);
+                        NegRoofLLRF.Add(pdNegRoofLLRF);
+                        PosStorageLLRF.Add(pdPosStorageLLRF);
+                        NegStorageLLRF.Add(pdNegStorageLLRF);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                DA.SetDataList("DL", DL);
+                DA.SetDataList("LLPosRed", LLPosRed);
+                DA.SetDataList("LLNegRed", LLNegRed);
+                DA.SetDataList("LLPosNonRed", LLPosNonRed);
+                DA.SetDataList("LLNegNonRed", LLNegNonRed);
+                DA.SetDataList("LLPosStorage", LLPosStorage);
+                DA.SetDataList("LLNegStorage", LLNegStorage);
+                DA.SetDataList("LLPosRoof", LLPosRoof);
+                DA.SetDataList("LLNegRoof", LLNegRoof);
+                DA.SetDataList("PosLLRF", PosLLRF);
+                DA.SetDataList("NegLLRF", NegLLRF);
+                DA.SetDataList("PosRoofLLRF", PosRoofLLRF);
+                DA.SetDataList("NegRoofLLRF", NegRoofLLRF);
+                DA.SetDataList("PosStorageLLRF", PosStorageLLRF);
+                DA.SetDataList("NegStorageLLRF", NegStorageLLRF);
+
+                //CLOSE           
+                IDBI.CloseDatabase();
+            }
+        }
+    }
 
 
     public class GET_GRAV_BEAM_REACT : GH_Component
@@ -2769,6 +2769,64 @@ namespace RAM_TO_REVIT_GRASSHOPPER
 
             //CLOSE           
             IDBI.CloseDatabase();
+        }
+    }
+
+
+    public class GET_STORY_ELEVATION : GH_Component
+    {
+
+        public GET_STORY_ELEVATION() : base("GET_STORY_ELEVATION", "GSE", "Get Story Elevation", "RAM Structural System", "Stories")
+        {
+
+        }
+        public override Guid ComponentGuid
+        {
+            get { return new Guid("06CB3645-815D-4D32-8B11-08D24F89D772"); }
+        }
+        public static GET_STORY_ELEVATION Instance
+        {
+            get;
+            private set;
+        }
+        protected override void RegisterInputParams(GH_InputParamManager pManager)
+        {
+            pManager.AddTextParameter("FileName", "FN", "File Name", GH_ParamAccess.item);
+
+        }
+
+        protected override void RegisterOutputParams(GH_OutputParamManager pManager)
+        {
+            pManager.AddNumberParameter("StoryElevation", "SE", "Story Elevation", GH_ParamAccess.item);
+        }
+
+        protected override void SolveInstance(IGH_DataAccess DA)
+        {
+            RamDataAccess1 RAMDataAccess = new RAMDATAACCESSLib.RamDataAccess1();
+            RAMDATAACCESSLib.IDBIO1 IDBI = (RAMDATAACCESSLib.IDBIO1)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IDBIO1_INT);
+            RAMDATAACCESSLib.IModel IModel = (RAMDATAACCESSLib.IModel)
+                RAMDataAccess.GetInterfacePointerByEnum(EINTERFACES.IModel_INT);
+            //OPEN
+            string FileName = null;
+            //int StoryID = -1;
+            if (!DA.GetData("FileName", ref FileName))
+            {
+                return;
+            }
+            if (FileName == null || FileName.Length == 0)
+            {
+                return;
+            }
+            IDBI.LoadDataBase2(FileName, "1");
+            IStories My_stories = IModel.GetStories();
+            List<double> StoryElevations = new List<double>();
+            for (int currentStory = 0; currentStory < My_stories.GetCount(); currentStory++)
+            {
+                IStory My_Story_BY_id = My_stories.GetAt(currentStory);
+                StoryElevations.Add(My_Story_BY_id.dElevation);
+            }
+            DA.SetDataList("StoryElevation", StoryElevations);
         }
     }
 }
